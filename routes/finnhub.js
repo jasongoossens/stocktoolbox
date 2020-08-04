@@ -5,7 +5,6 @@ const axios = require('axios');
 
 const baseUrl = 'https://finnhub.io/api/v1/';
 
-
 // GET /api/stocks/symbols
 // Get all supported symbols
 // https://finnhub.io/api/v1/stock/symbol?exchange=US
@@ -13,7 +12,7 @@ router.get('/symbols', (req, res) => {
   console.log(req);
   axios
     .get(baseUrl + 'stock/symbol', {
-      params: { exchange: 'US', token: config.get('finnHubfinnHubApiKey') },
+      params: { exchange: 'US', token: config.get('finnHubApiKey') },
     })
     .then((response) => {
       return res.send(response.data);
@@ -34,7 +33,7 @@ router.get('/symbols/:symbol', (req, res) => {
     .get(baseUrl + 'stock/profile2', {
       params: {
         symbol: req.params.symbol,
-        token: config.get('finnHubfinnHubApiKey'),
+        token: config.get('finnHubApiKey'),
       },
     })
     .then((response) => {
@@ -251,5 +250,33 @@ router.get('/price/:symbol', (req, res) => {
       );
     });
 });
+
+router.get('/test/:symbol', (req, res) => {
+  const symbol = req.params.symbol.toUpperCase();
+
+  getSymbolInfo(symbol)
+    .then((e) => {
+      res.send(e.description);
+    })
+    .catch((e) => console.log(e));
+});
+
+//  Get info on one symbol
+const getSymbolInfo = async (symbol) => {
+  return await axios
+    .get(baseUrl + 'stock/symbol', {
+      params: { exchange: 'US', token: config.get('finnHubApiKey') },
+    })
+    .then((response) => {
+      const { data } = response;
+      return data.find((s) => s.symbol === symbol);
+    })
+    .catch((err) => {
+      return new Error(
+        'I encountered a problem while connecting to Finnhub API:',
+        err.message
+      );
+    });
+};
 
 module.exports = router;
