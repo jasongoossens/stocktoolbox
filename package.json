@@ -11,7 +11,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.14.0",
     "axios": "^0.19.2",
     "config": "^3.3.1",
     "ejs": "^3.1.3",
