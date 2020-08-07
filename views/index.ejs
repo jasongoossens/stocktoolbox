@@ -3,10 +3,13 @@
 	<%- include('./partials/head') %>
 	<body>
 		<%- include('./partials/nav') %>
-		<h1>Home page</h1>
-		<p><%= data[0].country %></p>
-		<p><%= data[0].exchange %></p>
-		<p><%= data[0].name %></p>
-		<p><%= data[1].metric.assetTurnoverTTM %></p>
+		<h1>News</h1>
+		<% data.forEach(d => { %>
+			<h3><%= d.headline %></h3>
+			<p>
+				<a href="<%= d.url %>" target="_blank">
+					<%= d.summary %></a>
+			</p>
+		<% }) %>
 	</body>
-</html>
+</html></body></html></p></body></html>
