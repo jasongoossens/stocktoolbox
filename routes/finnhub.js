@@ -4,6 +4,7 @@ const config = require('config');
 const axios = require('axios');
 
 const baseUrl = 'https://finnhub.io/api/v1/';
+const token = config.get('finnHubApiKey');
 
 // GET /api/stocks/symbols
 // Get all supported symbols
@@ -12,7 +13,7 @@ router.get('/symbols', (req, res) => {
   console.log(req);
   axios
     .get(baseUrl + 'stock/symbol', {
-      params: { exchange: 'US', token: config.get('finnHubApiKey') },
+      params: { exchange: 'US', token: token },
     })
     .then((response) => {
       return res.send(response.data);
@@ -33,7 +34,7 @@ router.get('/symbols/:symbol', (req, res) => {
     .get(baseUrl + 'stock/profile2', {
       params: {
         symbol: req.params.symbol,
-        token: config.get('finnHubApiKey'),
+        token: token,
       },
     })
     .then((response) => {
@@ -56,7 +57,7 @@ router.get('/basicfinancials/:symbol', (req, res) => {
       params: {
         symbol: req.params.symbol,
         metric: 'all',
-        token: config.get('finnHubApiKey'),
+        token: token,
       },
     })
     .then((response) => {
@@ -78,7 +79,7 @@ router.get('/news', (req, res) => {
     .get(baseUrl + 'news/', {
       params: {
         category: 'general',
-        token: config.get('finnHubApiKey'),
+        token: token,
       },
     })
     .then((response) => {
@@ -112,7 +113,7 @@ router.get('/news/:symbol', (req, res) => {
           month: '2-digit',
           day: '2-digit',
         }),
-        token: config.get('finnHubApiKey'),
+        token: token,
       },
     })
     .then((response) => {
@@ -134,7 +135,7 @@ router.get('/peers/:symbol', (req, res) => {
     .get(baseUrl + 'stock/peers', {
       params: {
         symbol: req.params.symbol,
-        token: config.get('finnHubApiKey'),
+        token: token,
       },
     })
     .then((response) => {
@@ -157,7 +158,7 @@ router.get('/10q/:symbol', (req, res) => {
       params: {
         symbol: req.params.symbol,
         freq: 'quarterly',
-        token: config.get('finnHubApiKey'),
+        token: token,
       },
     })
     .then((response) => {
@@ -180,7 +181,7 @@ router.get('/10k/:symbol', (req, res) => {
       params: {
         symbol: req.params.symbol,
         freq: 'annual',
-        token: config.get('finnHubApiKey'),
+        token: token,
       },
     })
     .then((response) => {
@@ -201,21 +202,9 @@ router.get('/calendar', (req, res) => {
   axios
     .get(baseUrl + 'calendar/earnings', {
       params: {
-        from: new Date(
-          new Date().setMonth(new Date().getMonth() - 1)
-        ).toLocaleDateString('nl-BE', {
-          year: 'numeric',
-          month: '2-digit',
-          day: '2-digit',
-        }),
-        to: new Date(
-          new Date().setMonth(new Date().getMonth() + 1)
-        ).toLocaleDateString('nl-BE', {
-          year: 'numeric',
-          month: '2-digit',
-          day: '2-digit',
-        }),
-        token: config.get('finnHubApiKey'),
+        from: new Date(new Date().setFullYear(new Date().getFullYear() - 1)),
+        to: new Date(),
+        token: token,
       },
     })
     .then((response) => {
@@ -237,7 +226,35 @@ router.get('/price/:symbol', (req, res) => {
     .get(baseUrl + 'quote', {
       params: {
         symbol: req.params.symbol.toUpperCase(),
-        token: config.get('finnHubApiKey'),
+        token: token,
+      },
+    })
+    .then((response) => {
+      return res.send(response.data);
+    })
+    .catch((err) => {
+      return new Error(
+        'I encountered a problem while connecting to Finnhub API:',
+        err.message
+      );
+    });
+});
+
+// GET /api/chart/:symbol
+// Get historical prices
+// https://finnhub.io/api/v1/quote?symbol=AAPL
+router.get('/chart/:symbol', (req, res) => {
+  axios
+    .get(baseUrl + 'stock/candle', {
+      params: {
+        resolution: 'D',
+        from: new Date(new Date().setFullYear(new Date().getFullYear() - 1))
+          .getTime()
+          .toString()
+          .substr(0, 10),
+        to: Date.now().toString().substr(0, 10),
+        symbol: req.params.symbol.toUpperCase(),
+        token: token,
       },
     })
     .then((response) => {
@@ -265,7 +282,7 @@ router.get('/test/:symbol', (req, res) => {
 const getSymbolInfo = async (symbol) => {
   return await axios
     .get(baseUrl + 'stock/symbol', {
-      params: { exchange: 'US', token: config.get('finnHubApiKey') },
+      params: { exchange: 'US', token: token },
     })
     .then((response) => {
       const { data } = response;
