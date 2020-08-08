@@ -53,6 +53,11 @@ nav .nav-link a:hover {
   border: none;
   outline: none;
 }
+
+.search-bar input[type='text']::placeholder {
+  color: #8fadce;
+}
+
 .search-bar input[type='text']:focus {
   outline: none;
 }
@@ -75,4 +80,8 @@ nav .nav-link a:hover {
 .search-bar i {
   background-color: #8fadce;
   color: white;
+}
+
+#chart {
+  margin: 15px;
 }

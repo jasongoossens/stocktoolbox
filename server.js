@@ -3,9 +3,6 @@ const server = express();
 server.set('view engine', 'ejs');
 server.use(express.json());
 server.use(express.static('public'));
-server.use(
-  express.static('node_modules/@fortawesome/fontawesome-free/css/all.css')
-);
 const index = require('./routes/index');
 server.use(index);
 const stock = require('./routes/stock');

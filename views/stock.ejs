@@ -6,6 +6,10 @@
     <h1><%= company.name %></h1>
     <p>Country: <%= company.country %></p>
     <p>Price: <%= price.c %></p>
-    <img src="charts/google-chart.png" alt="" />
+    <div id="chart">
+      <script>
+        zingchart.render({id: 'chart', data: <%- chartConfig %>, width: '90%'});
+      </script>
+    </div>
   </body>
 </html>
