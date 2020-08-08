@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-  <%- include('./partials/head') %>
-  <body>
-    <%- include('./partials/nav') %>
-    <h1><%= company.name %></h1>
-    <p>Country: <%= company.country %></p>
-    <p>Price: <%= price.c %></p>
-    <div id="chart">
-      <script>
-        zingchart.render({id: 'chart', data: <%- chartConfig %>, width: '90%'});
-      </script>
-    </div>
-  </body>
+	<%- include('./partials/head') %>
+	<body>
+		<%- include('./partials/nav') %>
+		<h1><%= company.name %></h1>
+		<p>Country:
+			<%= company.country %></p>
+		<p>Price:
+			<%= price.c %></p>
+		<div id="chart">
+			<script>
+				zingchart.render({id: 'chart', data: <%- chartConfig %>});
+			</script>
+		</div>
+	</body>
 </html>

@@ -58,13 +58,16 @@ const showStockInformation = (req, res) => {
           volumeData.push(chart.v[index]);
       });
 
+      const chartSize = -150;
       const chartConfig = JSON.stringify({
         type: 'mixed',
         title: {
           text: company.name,
+          adjustLayout: true,
         },
+        plotarea: { margin: 'dynamic' },
         'scale-x': {
-          labels: dates,
+          labels: dates.slice(chartSize),
           step: 'day',
           transform: {
             type: 'date',
@@ -88,6 +91,17 @@ const showStockInformation = (req, res) => {
             text: 'Volume',
           },
         },
+        'crosshair-x': {
+          'plot-label': {
+            text:
+              'Open: $%open<br>High: $%high<br>Low: $%low<br>Close: $%close',
+            decimals: 2,
+          },
+          'scale-label': {
+            text: '%v',
+            decimals: 2,
+          },
+        },
         series: [
           {
             type: 'stock',
@@ -102,25 +116,28 @@ const showStockInformation = (req, res) => {
               'line-color': 'orange',
               'border-color': 'orange',
             },
+            'trend-equal': {
+              'background-color': 'red',
+              'line-color': 'red',
+              'border-color': 'red',
+            },
             plot: {
               aspect: 'candlestick',
-
-              tooltip: {
-                text:
-                  'On %kl:<br>Open: $%open<br>Hifsdfgh: $%high<br>Low: $%low<br>Close: $%close<br>',
-              },
             },
-            values: priceData,
+            values: priceData.slice(chartSize),
           },
           {
             type: 'bar',
             scales: 'scale-x,scale-y-2',
-            values: volumeData,
+            'background-color': '#6382a5',
+            'guide-label': {
+              text: 'Volume: %vM',
+              decimals: 2,
+            },
+            values: volumeData.slice(chartSize),
           },
         ],
       });
-
-      console.log('new chart is:', dates);
 
       res.render('stock', {
         title: ticker + ': ' + company.name,
