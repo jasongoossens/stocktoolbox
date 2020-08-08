@@ -71,7 +71,7 @@ const showStockInformation = (req, res) => {
           step: 'day',
           transform: {
             type: 'date',
-            all: '%D,<br>%m/%d',
+            all: '%dd/%m',
           },
         },
         'scale-y': {
