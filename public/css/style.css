@@ -44,7 +44,8 @@ nav .nav-link a:hover {
 
 .search-bar input[type='text'] {
   background-color: white;
-  color: black;
+  color: 
+  black;
   height: 3rem;
   width: 8ch;
   font-size: 2.5rem;
@@ -82,8 +83,11 @@ nav .nav-link a:hover {
   color: white;
 }
 
+.news-headline {
+  margin: 10px;
+}
+
 #chart {
   margin: 15px;
-
   width: 35vw;
 }
