@@ -5,11 +5,13 @@
 		<%- include('./partials/nav') %>
 		<h1>News</h1>
 		<% data.forEach(d => { %>
-			<h3><%= d.headline %></h3>
-			<p>
-				<a href="<%= d.url %>" target="_blank">
-					<%= d.summary %></a>
-			</p>
+			<div class="news-headline">
+				<h4><%= d.headline %></h4>
+				<p>
+					<a href="<%= d.url %>" target="_blank">
+						<%= d.summary %></a>
+				</p>
+			</div>
 		<% }) %>
 	</body>
 </html></body></html></p></body></html>
