@@ -1,31 +1,28 @@
 class ChartConfigService {
-  chartSize;
-  ticker;
-  prices;
-  volume;
-  dates;
   name;
-  highPricesArray;
-  lowPricesArray;
+  ticker;
+  chartData;
+  chartSize;
+  prices = [];
+  volumes = [];
+  dates = [];
 
-  constructor(
-    name,
-    ticker,
-    prices,
-    volume,
-    dates,
-    chartSize,
-    highPricesArray,
-    lowPricesArray
-  ) {
+  constructor(name, ticker, chartSize, chartData) {
     this.name = name;
     this.ticker = ticker;
-    this.prices = prices;
-    this.volume = volume;
-    this.dates = dates;
     this.chartSize = chartSize;
-    this.highPricesArray = highPricesArray;
-    this.lowPricesArray = lowPricesArray;
+
+    chartData.t.forEach((element, index) => {
+      this.dates.push(chartData.t[index] * 1000);
+      this.prices.push([
+        Math.round(chartData.o[index] * 100) / 100,
+        Math.round(chartData.h[index] * 100) / 100,
+        Math.round(chartData.l[index] * 100) / 100,
+        Math.round(chartData.c[index] * 100) / 100,
+      ]),
+        this.volumes.push(chartData.v[index]);
+    });
+    this.chartData = chartData;
   }
 
   createConfig() {
@@ -48,9 +45,9 @@ class ChartConfigService {
         'offset-start': '35%',
         format: '$%v',
         values: `${
-          Math.floor((Math.min(...this.highPricesArray) * 0.99) / 10) * 10
+          Math.floor((Math.min(...this.chartData.h) * 0.99) / 10) * 10
         }:
-          ${Math.ceil((Math.max(...this.lowPricesArray) * 1.02) / 10) * 10}`,
+          ${Math.ceil((Math.max(...this.chartData.l) * 1.02) / 10) * 10}`,
         label: {
           text: 'Prices',
         },
@@ -105,7 +102,7 @@ class ChartConfigService {
             text: 'Volume: %v',
             decimals: 0,
           },
-          values: this.volume.slice(this.chartSize),
+          values: this.volumes.slice(this.chartSize),
         },
       ],
     });

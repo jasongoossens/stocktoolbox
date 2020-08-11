@@ -61,31 +61,12 @@ const showStockInformation = (req, res) => {
       });
 
       const [company, price, chart, news] = data;
-      news.forEach((n) => console.log(n.id));
-      let priceData = [];
-      let volumeData = [];
-      let dates = [];
-
-      chart.t.forEach((element, index) => {
-        dates.push(chart.t[index] * 1000);
-        priceData.push([
-          Math.round(chart.o[index] * 100) / 100,
-          Math.round(chart.h[index] * 100) / 100,
-          Math.round(chart.l[index] * 100) / 100,
-          Math.round(chart.c[index] * 100) / 100,
-        ]),
-          volumeData.push(chart.v[index]);
-      });
 
       const chartService = new chartConfigService(
         company.name,
         ticker,
-        priceData,
-        volumeData,
-        dates,
         -150,
-        chart.h,
-        chart.l
+        chart
       );
       const chartConfig = chartService.createConfig();
 
@@ -94,6 +75,7 @@ const showStockInformation = (req, res) => {
         company,
         price,
         chartConfig,
+        news,
       });
     })
     .catch((error) => console.log('Something went wrong:', error));
