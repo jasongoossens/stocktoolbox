@@ -22,27 +22,46 @@ const showStockInformation = (req, res) => {
         token: token,
       },
     }),
-    axios
-      .get(baseUrl + 'stock/candle', {
-        params: {
-          resolution: 'D',
-          from: new Date(new Date().setFullYear(new Date().getFullYear() - 1))
-            .getTime()
-            .toString()
-            .substr(0, 10),
-          to: Date.now().toString().substr(0, 10),
-          symbol: ticker,
-          token: token,
-        },
-      })
-      .then(),
+    axios.get(baseUrl + 'stock/candle', {
+      params: {
+        resolution: 'D',
+        adjusted: true,
+        from: new Date(new Date().setFullYear(new Date().getFullYear() - 1))
+          .getTime()
+          .toString()
+          .substr(0, 10),
+        to: Date.now().toString().substr(0, 10),
+        symbol: ticker,
+        token: token,
+      },
+    }),
+    axios.get(baseUrl + 'company-news/', {
+      params: {
+        symbol: ticker,
+        from: new Date(
+          new Date().setFullYear(new Date().getFullYear() - 1)
+        ).toLocaleDateString('nl-BE', {
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
+        }),
+        to: new Date().toLocaleDateString('nl-BE', {
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
+        }),
+        token: token,
+      },
+    }),
   ])
     .then((response) => {
       response.map((r) => {
+        console.log(r.data);
         data.push(r.data);
       });
-      const [company, price, chart] = data;
 
+      const [company, price, chart, news] = data;
+      news.forEach((n) => console.log(n.id));
       let priceData = [];
       let volumeData = [];
       let dates = [];
