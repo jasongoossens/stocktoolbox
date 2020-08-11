@@ -4,22 +4,23 @@
 	<body>
 		<%- include('./partials/nav') %>
 		<div class="main-container">
-			<div class="news-container">
+			<div class="news-container market-container">
 				<h1>Market news</h1>
 				<% data.forEach(d => { %>
 					<div class="news-headline">
 						<a href="<%=d.url%>" target="_blank">
 							<h4><%= d.headline %></h4>
-							<p>
-
-								<%= d.summary %>
-							</p>
+							<p><%= d.summary %></p>
 						</a>
 					</div>
 				<% }) %>
 			</div>
-			<div class="calendar-container">test</div>
-			<div class="market-performance-container">test</div>
+			<div class="calendar-container market-container">
+				<h1>Calendar</h1>
+			</div>
+			<div class="market-performance-container market-container">
+				<h1>Indices / Sectors</h1>
+			</div>
 		</body>
 	</body>
 </html>

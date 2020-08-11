@@ -8,7 +8,7 @@ server.use(index);
 const stock = require('./routes/stock');
 server.use('/stock', stock);
 const finnhubRouter = require('./routes/finnHub');
-server.use('/api/stocks', finnhubRouter);
+//server.use('/api/stocks', finnhubRouter);
 
 const port = 3000;
 

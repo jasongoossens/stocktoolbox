@@ -89,6 +89,22 @@ nav .nav-link a:hover {
   color: white;
 }
 
+::-webkit-scrollbar {
+  width: 11px;
+}
+
+::-webkit-scrollbar-track {
+  background: #bed5ef;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #425f80;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #243c57;
+}
+
 .main-container {
   display: grid;
   grid-template-columns: calc(50% - calc(10px * 2)) 25% 25%;
@@ -98,10 +114,13 @@ nav .nav-link a:hover {
   padding: 10px;
 }
 
+.market-container {
+  padding: 10px;
+  background-color: var(--container-bg);
+}
+
 .news-container {
   grid-area: news;
-  background-color: var(--container-bg);
-  padding: 10px;
   overflow-y: scroll;
 }
 
@@ -127,12 +146,10 @@ nav .nav-link a:hover {
 
 .calendar-container {
   grid-area: calendar;
-  background-color: var(--container-bg);
 }
 
 .market-performance-container {
   grid-area: market-performance;
-  background-color: var(--container-bg);
 }
 
 #chart {
