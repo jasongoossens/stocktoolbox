@@ -3,15 +3,23 @@
 	<%- include('./partials/head') %>
 	<body>
 		<%- include('./partials/nav') %>
-		<h1>News</h1>
-		<% data.forEach(d => { %>
-			<div class="news-headline">
-				<h4><%= d.headline %></h4>
-				<p>
-					<a href="<%= d.url %>" target="_blank">
-						<%= d.summary %></a>
-				</p>
+		<div class="main-container">
+			<div class="news-container">
+				<h1>Market news</h1>
+				<% data.forEach(d => { %>
+					<div class="news-headline">
+						<a href="<%=d.url%>" target="_blank">
+							<h4><%= d.headline %></h4>
+							<p>
+
+								<%= d.summary %>
+							</p>
+						</a>
+					</div>
+				<% }) %>
 			</div>
-		<% }) %>
+			<div class="calendar-container">test</div>
+			<div class="market-performance-container">test</div>
+		</body>
 	</body>
-</html></body></html></p></body></html>
+</html>

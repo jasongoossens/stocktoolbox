@@ -1,10 +1,17 @@
+:root {
+  --container-bg: #6382a5;
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
   font-family: 'Roboto', sans-serif;
-  background-color: #8fadce;
   color: white;
+}
+
+body {
+  background-color: #8fadce;
 }
 
 nav {
@@ -44,8 +51,7 @@ nav .nav-link a:hover {
 
 .search-bar input[type='text'] {
   background-color: white;
-  color: 
-  black;
+  color: black;
   height: 3rem;
   width: 8ch;
   font-size: 2.5rem;
@@ -83,8 +89,50 @@ nav .nav-link a:hover {
   color: white;
 }
 
+.main-container {
+  display: grid;
+  grid-template-columns: calc(50% - calc(10px * 2)) 25% 25%;
+  grid-template-rows: calc(100vh - calc(10px * 2) - 68px);
+  grid-template-areas: 'news calendar market-performance';
+  grid-gap: 10px;
+  padding: 10px;
+}
+
+.news-container {
+  grid-area: news;
+  background-color: var(--container-bg);
+  padding: 10px;
+  overflow-y: scroll;
+}
+
 .news-headline {
-  margin: 10px;
+  margin: 15px 0;
+  border: 1px solid white;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.news-headline:hover {
+  background-color: #425f80;
+}
+
+.news-headline a {
+  text-decoration: none;
+}
+
+.news-headline h4 {
+  font-weight: 600;
+  font-size: 1.3rem;
+}
+
+.calendar-container {
+  grid-area: calendar;
+  background-color: var(--container-bg);
+}
+
+.market-performance-container {
+  grid-area: market-performance;
+  background-color: var(--container-bg);
 }
 
 #chart {
