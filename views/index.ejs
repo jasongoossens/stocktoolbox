@@ -23,12 +23,9 @@
 				<% }}) %>
 			</div>
 			<div class="calendar-container market-info-container">
-				<h1>Earnings calendar (-5d & +5d)</h1>
+				<h1>Earnings calendar (-2d to +2d)</h1>
 				<% earningsCalendar.forEach(event => { %>
-					<div class="calendar-event container-item <% if (event.date*1000 < new Date()) { %>
-																																																past-earnings
-																																																<% } %>
-																																																">
+					<div class="calendar-event container-item <%= event.epsActual !=0 ? " past-earnings" : " " %>">
 						<a href="/stock?ticker=<%= event.symbol %>">
 							<div class="header">
 								<h3>
@@ -40,8 +37,7 @@
 								  }),  %></h4>
 							</div>
 							<div class="item-content">
-								<h3>Quarter:
-									<%= event.quarter + "/"+ event.year  %></h3>
+								<h2><%= event.quarter + "/"+ event.year  %></h2>
 								<div class="earnings">
 									<div class="earnings-line">
 										<p>
@@ -68,7 +64,14 @@
 					</div>
 				<% }) %>
 			</div>
-			<div class="market-performance-container market-info-container">testing</div>
+			<div class="market-performance-container market-info-container">
+				<h1>Charts</h1>
+				<div class="chart-container">
+					<div class="chart">test</div>
+					<div class="chart">test</div>
+					<div class="chart">test</div>
+				</div>
+			</div>
 		</div>
 	</body>
-</html>
+</html></body></html>

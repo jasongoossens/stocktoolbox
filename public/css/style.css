@@ -84,6 +84,10 @@ nav .nav-link a:hover {
   outline: none;
 }
 
+.not-found-title {
+  margin: 20px;
+}
+
 .search-bar i {
   background-color: #8fadce;
   color: white;
@@ -166,14 +170,14 @@ nav .nav-link a:hover {
 }
 
 .past-earnings {
-  background-color: red;
+  background-color: #243c57;
 }
 .item-content {
   display: flex;
   justify-content: space-between;
 }
 
-.item-content h3 {
+.item-content h2 {
   font-weight: 500;
 }
 .earnings-line p {
@@ -190,6 +194,16 @@ nav .nav-link a:hover {
   justify-content: flex-end;
 }
 
+.chart-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(3, 1fr);
+  grid-gap: 10px;
+}
+
+.chart-container .chart {
+  border: 1px solid black;
+}
 #chart {
   margin: 15px;
   width: 35vw;
