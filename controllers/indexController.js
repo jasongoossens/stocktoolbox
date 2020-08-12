@@ -36,6 +36,7 @@ const showIndex = (req, res) => {
         token: finnHubToken,
       },
     }),
+    // TODO: need to add caching here - limit is 12 req/minutes
     axios.get(twelveDataBaseUrl + 'time_series', {
       params: {
         symbol: 'IXIC,GSPC,VIX',
