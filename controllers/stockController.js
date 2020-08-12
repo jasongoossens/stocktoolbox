@@ -56,19 +56,14 @@ const showStockInformation = (req, res) => {
   ])
     .then((response) => {
       response.map((r) => {
-        console.log(r.data);
         data.push(r.data);
       });
 
       const [company, price, chart, news] = data;
 
-      const chartService = new chartConfigService(
-        company.name,
-        ticker,
-        -150,
-        chart
-      );
-      const chartConfig = chartService.createConfig();
+      const chartService = new chartConfigService();
+      chartService.sanitizeFinnHubData(chart);
+      const chartConfig = chartService.createStockConfig(company.name, -150);
 
       res.render('stock', {
         title: ticker + ': ' + company.name,

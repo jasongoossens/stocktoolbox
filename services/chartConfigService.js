@@ -1,17 +1,10 @@
 class ChartConfigService {
-  name;
-  ticker;
-  chartData;
-  chartSize;
   prices = [];
   volumes = [];
   dates = [];
+  chartData = [];
 
-  constructor(name, ticker, chartSize, chartData) {
-    this.name = name;
-    this.ticker = ticker;
-    this.chartSize = chartSize;
-
+  sanitizeFinnHubData(chartData) {
     chartData.t.forEach((element, index) => {
       this.dates.push(chartData.t[index] * 1000);
       this.prices.push([
@@ -22,19 +15,27 @@ class ChartConfigService {
       ]),
         this.volumes.push(chartData.v[index]);
     });
+    console.log(chartData);
     this.chartData = chartData;
   }
 
-  createConfig() {
+  sanitizeTwelveDataData(chartData) {
+    // transform to arrays of c,h,l,o
+    // or just take the lows - need to return a wildly different chart then
+  }
+  
+  createIndexConfig(name) {}
+
+  createStockConfig(name, chartSize) {
     return JSON.stringify({
       type: 'mixed',
       title: {
-        text: this.name,
+        text: name,
         adjustLayout: true,
       },
       plotarea: { margin: 'dynamic' },
       'scale-x': {
-        labels: this.dates.slice(this.chartSize),
+        labels: this.dates.slice(chartSize),
         step: 'day',
         transform: {
           type: 'date',
@@ -92,7 +93,7 @@ class ChartConfigService {
           plot: {
             aspect: 'candlestick',
           },
-          values: this.prices.slice(this.chartSize),
+          values: this.prices.slice(chartSize),
         },
         {
           type: 'bar',
@@ -102,7 +103,7 @@ class ChartConfigService {
             text: 'Volume: %v',
             decimals: 0,
           },
-          values: this.volumes.slice(this.chartSize),
+          values: this.volumes.slice(chartSize),
         },
       ],
     });
