@@ -1,37 +1,47 @@
 const axios = require('axios');
 const config = require('config');
-const e = require('express');
+const chartConfigService = require('../services/chartConfigService');
 
-const baseUrl = 'https://finnhub.io/api/v1/';
-const token = config.get('finnHubApiKey');
+const finnHubBaseUrl = 'https://finnhub.io/api/v1/';
+const twelveDataBaseUrl = 'https://api.twelvedata.com/';
+const finnHubToken = config.get('finnHubApiKey');
+const twelveDataToken = config.get('twelveDataApiKey');
 
 const showIndex = (req, res) => {
   let data = [];
 
   Promise.all([
-    axios.get(baseUrl + 'news/', {
+    axios.get(finnHubBaseUrl + 'news/', {
       params: {
         category: 'general',
-        token: token,
+        token: finnHubToken,
       },
     }),
-    axios.get(baseUrl + 'calendar/earnings', {
+    axios.get(finnHubBaseUrl + 'calendar/earnings', {
       params: {
         from: new Date(
-          new Date().setDate(new Date().getDate() - 5)
+          new Date().setDate(new Date().getDate() - 2)
         ).toLocaleDateString('nl-BE', {
           year: 'numeric',
           month: '2-digit',
           day: '2-digit',
         }),
         to: new Date(
-          new Date().setDate(new Date().getDate() + 5)
+          new Date().setDate(new Date().getDate() + 2)
         ).toLocaleDateString('nl-BE', {
           year: 'numeric',
           month: '2-digit',
           day: '2-digit',
         }),
-        token: token,
+        token: finnHubToken,
+      },
+    }),
+    axios.get(twelveDataBaseUrl + 'time_series', {
+      params: {
+        symbol: 'IXIC,GSPC,VIX',
+        interval: '1day',
+        outputsize: 253,
+        apikey: twelveDataToken,
       },
     }),
   ])
@@ -39,10 +49,18 @@ const showIndex = (req, res) => {
       response.map((r) => {
         data.push(r.data);
       });
-      const [news, calendar] = data;
-
+      const [news, calendar, indexCharts] = data;
       const earningsCalendar = sanitizeEarningsData(calendar);
-      console.log(earningsCalendar);
+
+      console.log(indexCharts.VIX);
+
+      // loop over the 3 indices,
+      // sanitize their data,
+      // and return an array of chartConfig object
+      // const chartService = new chartConfigService();
+      // chartService.sanitizeTwelveDataData(chart);
+      // const chartConfig = chartService.createConfig(company.name);
+
       res.render('index', { title: 'Index', news, earningsCalendar });
     })
     .catch((error) => console.log('Something went wrong:', error));
