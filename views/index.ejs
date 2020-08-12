@@ -26,13 +26,13 @@
 				<h1>Earnings calendar (-5d & +5d)</h1>
 				<% earningsCalendar.forEach(event => { %>
 					<div class="calendar-event container-item <% if (event.date*1000 < new Date()) { %>
-																											past-earnings
-																											<% } %>
-																											">
+																																																past-earnings
+																																																<% } %>
+																																																">
 						<a href="/stock?ticker=<%= event.symbol %>">
 							<div class="header">
-								<h4>Ticker:
-									<%= event.symbol %></h4>
+								<h3>
+									<%= event.symbol %></h3>
 								<h4 class="item-date"><%= new Date(event.date).toLocaleDateString('nl-BE', {
 									year: 'numeric',
 									month: '2-digit',
@@ -40,8 +40,8 @@
 								  }),  %></h4>
 							</div>
 							<div class="item-content">
-								<p>Quarter:
-									<%= event.quarter + "/"+ event.year  %></p>
+								<h3>Quarter:
+									<%= event.quarter + "/"+ event.year  %></h3>
 								<div class="earnings">
 									<div class="earnings-line">
 										<p>

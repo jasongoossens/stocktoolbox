@@ -7,8 +7,10 @@ const index = require('./routes/index');
 server.use(index);
 const stock = require('./routes/stock');
 server.use('/stock', stock);
-const finnhubRouter = require('./routes/finnHub');
+// const finnhubRouter = require('./routes/finnHub');
+// const twelveDataRouter = require('./routes/twelveData');
 //server.use('/api/stocks', finnhubRouter);
+// server.use('/api/stocks', twelveDataRouter);
 
 const port = 3000;
 

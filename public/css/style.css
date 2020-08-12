@@ -172,6 +172,10 @@ nav .nav-link a:hover {
   display: flex;
   justify-content: space-between;
 }
+
+.item-content h3 {
+  font-weight: 500;
+}
 .earnings-line p {
   display: flex;
   justify-content: space-between;
