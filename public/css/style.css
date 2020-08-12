@@ -91,14 +91,19 @@ nav .nav-link a:hover {
 
 ::-webkit-scrollbar {
   width: 11px;
+  scroll-behavior: smooth !important;
 }
 
 ::-webkit-scrollbar-track {
   background: #bed5ef;
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
 }
 
 ::-webkit-scrollbar-thumb {
   background: #425f80;
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -114,9 +119,10 @@ nav .nav-link a:hover {
   padding: 10px;
 }
 
-.market-container {
+.market-info-container {
   padding: 10px;
   background-color: var(--container-bg);
+  border-radius: 12px;
 }
 
 .news-container {
@@ -124,32 +130,60 @@ nav .nav-link a:hover {
   overflow-y: scroll;
 }
 
-.news-headline {
+.calendar-container {
+  grid-area: calendar;
+  overflow-y: scroll;
+}
+
+.market-performance-container {
+  grid-area: market-performance;
+}
+
+.container-item {
   margin: 15px 0;
   border: 1px solid white;
   border-radius: 5px;
   padding: 5px;
 }
 
-.news-headline:hover {
+.container-item:hover {
   background-color: #425f80;
 }
 
-.news-headline a {
+.container-item a {
   text-decoration: none;
 }
 
-.news-headline h4 {
+.container-item .header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.container-item .header h4 {
   font-weight: 600;
-  font-size: 1.3rem;
+  font-size: 1.1rem;
+  margin-bottom: 10px;
 }
 
-.calendar-container {
-  grid-area: calendar;
+.past-earnings {
+  background-color: red;
+}
+.item-content {
+  display: flex;
+  justify-content: space-between;
+}
+.earnings-line p {
+  display: flex;
+  justify-content: space-between;
 }
 
-.market-performance-container {
-  grid-area: market-performance;
+.earnings-line .title {
+}
+
+.earnings-line .number {
+  width: 7ch;
+  display: flex;
+  justify-content: flex-end;
 }
 
 #chart {

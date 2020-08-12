@@ -4,23 +4,71 @@
 	<body>
 		<%- include('./partials/nav') %>
 		<div class="main-container">
-			<div class="news-container market-container">
+			<div class="news-container market-info-container">
 				<h1>Market news</h1>
-				<% data.forEach(d => { %>
-					<div class="news-headline">
-						<a href="<%=d.url%>" target="_blank">
-							<h4><%= d.headline %></h4>
-							<p><%= d.summary %></p>
+				<% news.map(newsItem => { if (newsItem.category != 'technology') { %>
+					<div class="news-event container-item">
+						<a href="<%=newsItem.url%>" target="_blank">
+							<div class="header">
+								<h4><%= newsItem.headline %></h4>
+								<h4 class="item-date"><%= new Date(newsItem.datetime *1000 ).toLocaleDateString('nl-BE', {
+									year: 'numeric',
+									month: '2-digit',
+									day: '2-digit',
+								  }), %></h4>
+							</div>
+							<p><%= newsItem.summary %></p>
+						</a>
+					</div>
+				<% }}) %>
+			</div>
+			<div class="calendar-container market-info-container">
+				<h1>Earnings calendar (-5d & +5d)</h1>
+				<% earningsCalendar.forEach(event => { %>
+					<div class="calendar-event container-item <% if (event.date*1000 < new Date()) { %>
+																											past-earnings
+																											<% } %>
+																											">
+						<a href="/stock?ticker=<%= event.symbol %>">
+							<div class="header">
+								<h4>Ticker:
+									<%= event.symbol %></h4>
+								<h4 class="item-date"><%= new Date(event.date).toLocaleDateString('nl-BE', {
+									year: 'numeric',
+									month: '2-digit',
+									day: '2-digit',
+								  }),  %></h4>
+							</div>
+							<div class="item-content">
+								<p>Quarter:
+									<%= event.quarter + "/"+ event.year  %></p>
+								<div class="earnings">
+									<div class="earnings-line">
+										<p>
+											<span class="title">
+												EPS estimate
+											</span>
+											<span class="number"><%= event.epsEstimate.toFixed(3) %></span>
+										</p>
+									</div>
+									<div class="earnings-line">
+										<% if (event.epsActual != 0) { %>
+											<p>
+												<span class="title">
+													EPS actual
+												</span>
+												<span class="number"><%= event.epsActual.toFixed(3) %></span>
+											</p>
+										<% } %>
+									</div>
+
+								</div>
+							</div>
 						</a>
 					</div>
 				<% }) %>
 			</div>
-			<div class="calendar-container market-container">
-				<h1>Calendar</h1>
-			</div>
-			<div class="market-performance-container market-container">
-				<h1>Indices / Sectors</h1>
-			</div>
-		</body>
+			<div class="market-performance-container market-info-container">testing</div>
+		</div>
 	</body>
 </html>
