@@ -1,5 +1,5 @@
 const axios = require('axios');
-const config = require('./config');
+const config = require('config');
 const chartConfigService = require('../services/chartConfigService');
 
 const finnHubBaseUrl = 'https://finnhub.io/api/v1/';
