@@ -69,7 +69,7 @@ const showIndex = (req, res) => {
       if (indexCharts.status === 'error') {
         apiError = {
           error: true,
-          message: 'I encountered an error while contacting the API.',
+          message: 'I encountered an error while contacting the API',
           code: indexCharts.message,
         };
 
