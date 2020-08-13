@@ -67,11 +67,23 @@
 			<div class="market-performance-container market-info-container">
 				<h1>Charts</h1>
 				<div class="chart-container">
-					<div class="chart">test</div>
-					<div class="chart">test</div>
-					<div class="chart">test</div>
+					<div id="chartSP500" class="chart">
+						<script>
+							zingchart.render({id: 'chartSP500', data: <%- sAndPChartConfig %>, height: '100%'});
+						</script>
+					</div>
+					<div id="chartNasdaq" class="chart">
+						<script>
+							zingchart.render({id: 'chartNasdaq', data: <%- nasdaqChartConfig %>, height: '100%'});
+						</script>
+					</div>
+					<div id="chartVix" class="chart">
+						<script>
+							zingchart.render({id: 'chartVix', data: <%- vixChartConfig %>, height: '100%'});
+						</script>
+					</div>
 				</div>
 			</div>
-		</div>
+		</body>
 	</body>
-</html></body></html>
+</html>

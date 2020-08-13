@@ -185,9 +185,6 @@ nav .nav-link a:hover {
   justify-content: space-between;
 }
 
-.earnings-line .title {
-}
-
 .earnings-line .number {
   width: 7ch;
   display: flex;
@@ -195,14 +192,16 @@ nav .nav-link a:hover {
 }
 
 .chart-container {
-  display: grid;
+  height: 100%;
+  /* display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: repeat(3, 1fr);
-  grid-gap: 10px;
+  grid-template-rows: repeat(3, 15%);
+  grid-gap: 10px; */
 }
 
 .chart-container .chart {
-  border: 1px solid black;
+  margin-bottom: 10px;
+  height: calc(calc(100% - 38px - 30px) / 3);
 }
 #chart {
   margin: 15px;

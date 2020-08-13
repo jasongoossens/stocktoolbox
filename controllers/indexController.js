@@ -39,7 +39,7 @@ const showIndex = (req, res) => {
     // TODO: need to add caching here - limit is 12 req/minutes
     axios.get(twelveDataBaseUrl + 'time_series', {
       params: {
-        symbol: 'IXIC,GSPC,VIX',
+        symbol: 'GSPC,IXIC,VIX',
         interval: '1day',
         outputsize: 253,
         apikey: twelveDataToken,
@@ -53,16 +53,32 @@ const showIndex = (req, res) => {
       const [news, calendar, indexCharts] = data;
       const earningsCalendar = sanitizeEarningsData(calendar);
 
-      console.log(indexCharts.VIX);
+      const indexPricesArray = [];
+      // Order is S&P, Nasdaq, VIX
+      for (const element in indexCharts) {
+        indexPricesArray.push(Array.from(indexCharts[element].values));
+      }
 
-      // loop over the 3 indices,
-      // sanitize their data,
-      // and return an array of chartConfig object
-      // const chartService = new chartConfigService();
-      // chartService.sanitizeTwelveDataData(chart);
-      // const chartConfig = chartService.createConfig(company.name);
+      const [sAndP, nasdaq, vix] = indexPricesArray;
+      console.log(nasdaq);
+      const sAndPchartService = new chartConfigService();
+      sAndPchartService.sanitizeTwelveDataData(sAndP);
+      const sAndPChartConfig = sAndPchartService.createIndexConfig('SP500');
+      const nasdaqChartService = new chartConfigService();
+      nasdaqChartService.sanitizeTwelveDataData(nasdaq);
+      const nasdaqChartConfig = nasdaqChartService.createIndexConfig('Nasdaq');
+      const vixChartService = new chartConfigService();
+      vixChartService.sanitizeTwelveDataData(vix);
+      const vixChartConfig = vixChartService.createIndexConfig('VIX');
 
-      res.render('index', { title: 'Index', news, earningsCalendar });
+      res.render('index', {
+        title: 'Index',
+        news,
+        earningsCalendar,
+        sAndPChartConfig,
+        nasdaqChartConfig,
+        vixChartConfig,
+      });
     })
     .catch((error) => console.log('Something went wrong:', error));
 };

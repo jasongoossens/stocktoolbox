@@ -3,6 +3,8 @@ class ChartConfigService {
   volumes = [];
   dates = [];
   chartData = [];
+  twelveDataHighPrices = [];
+  twelveDataLowPrices = [];
 
   sanitizeFinnHubData(chartData) {
     chartData.t.forEach((element, index) => {
@@ -15,16 +17,75 @@ class ChartConfigService {
       ]),
         this.volumes.push(chartData.v[index]);
     });
-    console.log(chartData);
     this.chartData = chartData;
   }
 
   sanitizeTwelveDataData(chartData) {
-    // transform to arrays of c,h,l,o
-    // or just take the lows - need to return a wildly different chart then
+    for (const element in chartData) {
+      this.dates.push(chartData[element].datetime);
+      this.prices.push([
+        Math.round(chartData[element].open * 100) / 100,
+        Math.round(chartData[element].high * 100) / 100,
+        Math.round(chartData[element].low * 100) / 100,
+        Math.round(chartData[element].close * 100) / 100,
+      ]),
+        this.volumes.push(chartData[element].volume);
+    }
+
+    for (const element in chartData) {
+      this.twelveDataHighPrices.push(parseFloat(chartData[element].high));
+      this.twelveDataLowPrices.push(parseFloat(chartData[element].low));
+    }
   }
-  
-  createIndexConfig(name) {}
+
+  createIndexConfig(name) {
+    return JSON.stringify({
+      type: 'stock',
+
+      title: {
+        text: name,
+        adjustLayout: true,
+      },
+      plotarea: { margin: 'dynamic' },
+      'scale-x': {
+        labels: this.dates,
+        step: 'day',
+        transform: {
+          type: 'date',
+          all: '%dd/%m',
+        },
+      },
+      plot: {
+        aspect: 'candlestick',
+      },
+      'scale-y': {
+        values: `${
+          Math.floor((Math.min(...this.twelveDataHighPrices) * 0.99) / 10) * 10
+        }:
+          ${
+            Math.ceil((Math.max(...this.twelveDataLowPrices) * 1.02) / 10) * 10
+          }`,
+        label: {
+          text: 'Prices',
+        },
+      },
+      'crosshair-x': {
+        'plot-label': {
+          text: 'Open: $%open<br>High: $%high<br>Low: $%low<br>Close: $%close',
+          decimals: 2,
+        },
+        'scale-label': {
+          text: '%v',
+          decimals: 2,
+        },
+      },
+      series: [
+        {
+          values: this.prices,
+        },
+      ],
+    });
+  }
 
   createStockConfig(name, chartSize) {
     return JSON.stringify({
@@ -45,10 +106,8 @@ class ChartConfigService {
       'scale-y': {
         'offset-start': '35%',
         format: '$%v',
-        values: `${
-          Math.floor((Math.min(...this.chartData.h) * 0.99) / 10) * 10
-        }:
-          ${Math.ceil((Math.max(...this.chartData.l) * 1.02) / 10) * 10}`,
+        values: `${Math.floor((Math.min(...this.chart.h) * 0.99) / 10) * 10}:
+          ${Math.ceil((Math.max(...this.chart.l) * 1.02) / 10) * 10}`,
         label: {
           text: 'Prices',
         },
