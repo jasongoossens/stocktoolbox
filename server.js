@@ -1,5 +1,6 @@
 const express = require('express');
 const server = express();
+server.disable('etag').disable('x-powered-by');
 server.set('view engine', 'ejs');
 server.use(express.json());
 server.use(express.static('public'));
