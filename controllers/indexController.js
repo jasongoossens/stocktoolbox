@@ -62,13 +62,11 @@ const showIndex = (req, res) => {
       });
 
       const [news, calendar, indexCharts] = data;
-
       const earningsCalendar = sanitizeEarningsData(calendar);
 
       const indexPricesArray = [];
 
       if (indexCharts.status === 'error') {
-        console.log(indexCharts);
         apiError = {
           error: true,
           message: 'I encountered an error while contacting the API.',
@@ -88,7 +86,6 @@ const showIndex = (req, res) => {
         }
 
         const [sAndP, nasdaq, vix] = indexPricesArray;
-        console.log(nasdaq);
         const sAndPchartService = new chartConfigService();
         sAndPchartService.sanitizeTwelveDataData(sAndP);
         const sAndPChartConfig = sAndPchartService.createIndexConfig('SP500');

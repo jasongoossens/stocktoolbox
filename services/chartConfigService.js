@@ -106,8 +106,8 @@ class ChartConfigService {
       'scale-y': {
         'offset-start': '35%',
         format: '$%v',
-        values: `${Math.floor((Math.min(...this.chart.h) * 0.99) / 10) * 10}:
-          ${Math.ceil((Math.max(...this.chart.l) * 1.02) / 10) * 10}`,
+        values: `${Math.floor((Math.min(...this.chartData.h) * 0.99) / 10) * 10}:
+          ${Math.ceil((Math.max(...this.chartData.l) * 1.02) / 10) * 10}`,
         label: {
           text: 'Prices',
         },
