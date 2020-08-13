@@ -9,6 +9,12 @@ const twelveDataToken = config.get('twelveDataApiKey');
 
 const showIndex = (req, res) => {
   let data = [];
+  let cachedData;
+  let cachedTime;
+  let apiError = {
+    error: false,
+    message: '',
+  };
 
   Promise.all([
     axios.get(finnHubBaseUrl + 'news/', {
@@ -36,7 +42,9 @@ const showIndex = (req, res) => {
         token: finnHubToken,
       },
     }),
-    // TODO: need to add caching here - limit is 12 req/minutes
+    // TODO: need to add caching here - limit is 12 req/minutes or 800/day
+    // surpassing the limit results in a code 429
+
     axios.get(twelveDataBaseUrl + 'time_series', {
       params: {
         symbol: 'GSPC,IXIC,VIX',
@@ -48,37 +56,60 @@ const showIndex = (req, res) => {
   ])
     .then((response) => {
       response.map((r) => {
-        data.push(r.data);
+        if (r !== undefined) {
+          data.push(r.data);
+        }
       });
+
       const [news, calendar, indexCharts] = data;
+
       const earningsCalendar = sanitizeEarningsData(calendar);
 
       const indexPricesArray = [];
-      // Order is S&P, Nasdaq, VIX
-      for (const element in indexCharts) {
-        indexPricesArray.push(Array.from(indexCharts[element].values));
+
+      if (indexCharts.status === 'error') {
+        console.log(indexCharts);
+        apiError = {
+          error: true,
+          message: 'I encountered an error while contacting the API.',
+          code: indexCharts.message,
+        };
+
+        res.render('index', {
+          title: 'Index',
+          news,
+          earningsCalendar,
+          apiError,
+        });
+      } else {
+        // Order is S&P, Nasdaq, VIX
+        for (const element in indexCharts) {
+          indexPricesArray.push(Array.from(indexCharts[element].values));
+        }
+
+        const [sAndP, nasdaq, vix] = indexPricesArray;
+        console.log(nasdaq);
+        const sAndPchartService = new chartConfigService();
+        sAndPchartService.sanitizeTwelveDataData(sAndP);
+        const sAndPChartConfig = sAndPchartService.createIndexConfig('SP500');
+        const nasdaqChartService = new chartConfigService();
+        nasdaqChartService.sanitizeTwelveDataData(nasdaq);
+        const nasdaqChartConfig = nasdaqChartService.createIndexConfig(
+          'Nasdaq'
+        );
+        const vixChartService = new chartConfigService();
+        vixChartService.sanitizeTwelveDataData(vix);
+        const vixChartConfig = vixChartService.createIndexConfig('VIX');
+
+        res.render('index', {
+          title: 'Index',
+          news,
+          earningsCalendar,
+          sAndPChartConfig,
+          nasdaqChartConfig,
+          vixChartConfig,
+        });
       }
-
-      const [sAndP, nasdaq, vix] = indexPricesArray;
-      console.log(nasdaq);
-      const sAndPchartService = new chartConfigService();
-      sAndPchartService.sanitizeTwelveDataData(sAndP);
-      const sAndPChartConfig = sAndPchartService.createIndexConfig('SP500');
-      const nasdaqChartService = new chartConfigService();
-      nasdaqChartService.sanitizeTwelveDataData(nasdaq);
-      const nasdaqChartConfig = nasdaqChartService.createIndexConfig('Nasdaq');
-      const vixChartService = new chartConfigService();
-      vixChartService.sanitizeTwelveDataData(vix);
-      const vixChartConfig = vixChartService.createIndexConfig('VIX');
-
-      res.render('index', {
-        title: 'Index',
-        news,
-        earningsCalendar,
-        sAndPChartConfig,
-        nasdaqChartConfig,
-        vixChartConfig,
-      });
     })
     .catch((error) => console.log('Something went wrong:', error));
 };
