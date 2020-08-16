@@ -56,13 +56,10 @@ const showStockInformation = (req, res) => {
         token: token,
       },
     }),
-    new Promise((resolve, reject) => {
-      recentlyViewedSymbols = req.cookies.lastViewedSymbols;
-      resolve(recentlyViewedSymbols);
-    }),
   ])
     .then((response) => {
       response.map((r) => {
+        console.log(r);
         data.push(r.data);
       });
 
