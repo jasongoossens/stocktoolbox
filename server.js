@@ -2,16 +2,14 @@ const express = require('express');
 const server = express();
 server.disable('etag').disable('x-powered-by');
 server.set('view engine', 'ejs');
+const cookieParser = require('cookie-parser');
+server.use(cookieParser());
 server.use(express.json());
 server.use(express.static('public'));
 const index = require('./routes/index');
 server.use(index);
 const stock = require('./routes/stock');
 server.use('/stock', stock);
-// const finnhubRouter = require('./routes/finnHub');
-// const twelveDataRouter = require('./routes/twelveData');
-//server.use('/api/stocks', finnhubRouter);
-// server.use('/api/stocks', twelveDataRouter);
 
 const port = 3000;
 
