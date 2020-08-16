@@ -59,7 +59,6 @@ const showStockInformation = (req, res) => {
   ])
     .then((response) => {
       response.map((r) => {
-        console.log(r);
         data.push(r.data);
       });
 
