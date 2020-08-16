@@ -72,13 +72,6 @@ const showIndex = (req, res) => {
           message: 'I encountered an error while contacting the API',
           code: indexCharts.message,
         };
-
-        res.render('index', {
-          title: 'Index',
-          news,
-          earningsCalendar,
-          apiError,
-        });
       } else {
         // Order is S&P, Nasdaq, VIX
         for (const element in indexCharts) {
@@ -88,25 +81,24 @@ const showIndex = (req, res) => {
         const [sAndP, nasdaq, vix] = indexPricesArray;
         const sAndPchartService = new chartConfigService();
         sAndPchartService.sanitizeTwelveDataData(sAndP);
-        const sAndPChartConfig = sAndPchartService.createIndexConfig('SP500');
+        sAndPChartConfig = sAndPchartService.createIndexConfig('SP500');
         const nasdaqChartService = new chartConfigService();
         nasdaqChartService.sanitizeTwelveDataData(nasdaq);
-        const nasdaqChartConfig = nasdaqChartService.createIndexConfig(
-          'Nasdaq'
-        );
+        nasdaqChartConfig = nasdaqChartService.createIndexConfig('Nasdaq');
         const vixChartService = new chartConfigService();
         vixChartService.sanitizeTwelveDataData(vix);
-        const vixChartConfig = vixChartService.createIndexConfig('VIX');
-
-        res.render('index', {
-          title: 'Index',
-          news,
-          earningsCalendar,
-          sAndPChartConfig,
-          nasdaqChartConfig,
-          vixChartConfig,
-        });
+        vixChartConfig = vixChartService.createIndexConfig('VIX');
       }
+
+      res.render('index', {
+        title: 'Index',
+        news,
+        earningsCalendar,
+        sAndPChartConfig,
+        nasdaqChartConfig,
+        vixChartConfig,
+        apiError,
+      });
     })
     .catch((error) => console.log('Something went wrong:', error));
 };
