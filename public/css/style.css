@@ -53,8 +53,12 @@ nav .nav-link a:hover {
   font-size: 1.2rem;
   background-color: #425f80;
   margin: 0 3px;
-  padding: 10px 15px;
+  padding: 8px 15px;
   border-radius: 20px;
+}
+
+.recent-symbol-container a {
+  text-decoration: none;
 }
 
 .search-bar {

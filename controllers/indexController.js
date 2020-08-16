@@ -87,11 +87,9 @@ const showIndex = (req, res) => {
         nasdaqChartConfig = nasdaqChartService.createIndexConfig('Nasdaq');
         const vixChartService = new chartConfigService();
         vixChartService.sanitizeTwelveDataData(vix);
-        vixChartConfig = vixChartService.createIndexConfig('VIX');
+        vixChartConfig = vixChartService.createIndexConfig('VIX', -90);
       }
 
-      const recentlyViewedSymbols = req.cookies.lastViewedSymbols;
-      
       res.render('index', {
         title: 'Index',
         news,
@@ -100,7 +98,7 @@ const showIndex = (req, res) => {
         nasdaqChartConfig,
         vixChartConfig,
         apiError,
-        recentlyViewedSymbols,
+        recentSymbolsArray,
       });
     })
     .catch((error) => console.log('Something went wrong:', error));

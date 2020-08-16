@@ -1,15 +1,18 @@
-function addSymbolToLastViewed(symbol, lastViewedSymbolsArray) {
-  const maxLength = 5;
+global.recentSymbolsArray = [];
 
-  if (!lastViewedSymbolsArray.includes(symbol)) {
-    lastViewedSymbolsArray.unshift(symbol);
+class RecentSymbols {
+  addSymbolToLastViewed(symbol) {
+    const maxLength = 5;
 
-    if (lastViewedSymbolsArray.length > maxLength) {
-      lastViewedSymbolsArray.splice(maxLength, 1);
+    if (!recentSymbolsArray.includes(symbol)) {
+      recentSymbolsArray.unshift(symbol);
+
+      if (recentSymbolsArray.length > maxLength) {
+        recentSymbolsArray.splice(maxLength, 1);
+      }
     }
+    return recentSymbolsArray;
   }
-
-  return lastViewedSymbolsArray;
 }
 
-module.exports = addSymbolToLastViewed;
+module.exports = RecentSymbols;

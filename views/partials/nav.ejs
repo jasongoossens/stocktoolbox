@@ -3,16 +3,19 @@
 		<a href="/">StockToolbox</a>
 	</h1>
 	<div class="search-container">
-		<% if (recentlyViewedSymbols) { %>
+		<% if (recentSymbolsArray) { %>
 			<div class="recent-symbol-container">
-				<% recentlyViewedSymbols.map(symbol => { %>
-					<div class="symbol"><%= symbol %></div>
+				<% recentSymbolsArray.map(symbol => { %>
+					<a href="/stock?ticker=<%=symbol%>">
+						<div class="symbol">
+							<%= symbol %></div>
+					</a>
 				<% }) %>
 			</div>
 		<% } %>
 		<div class="search-bar">
 			<form action="/stock">
-				<input type="text" name="ticker" placeholder="ticker"/>
+				<input type="text" name="ticker" placeholder="ticker" required/>
 				<button type="submit">
 					<i class="fa fa-search"></i>
 				</button>
