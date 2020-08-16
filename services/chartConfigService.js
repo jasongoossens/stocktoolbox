@@ -38,7 +38,11 @@ class ChartConfigService {
     }
   }
 
-  createIndexConfig(name) {
+  createIndexConfig(name, chartSize = -253) {
+    // TODO: dates are backwards
+    console.log(this.prices);
+    console.log(this.dates);
+    console.log(this.volumes);
     return JSON.stringify({
       type: 'stock',
 
@@ -48,7 +52,7 @@ class ChartConfigService {
       },
       plotarea: { margin: 'dynamic' },
       'scale-x': {
-        labels: this.dates,
+        labels: this.dates.slice(chartSize),
         step: 'day',
         transform: {
           type: 'date',
@@ -81,7 +85,7 @@ class ChartConfigService {
       },
       series: [
         {
-          values: this.prices,
+          values: this.prices.slice(chartSize),
         },
       ],
     });
@@ -106,7 +110,9 @@ class ChartConfigService {
       'scale-y': {
         'offset-start': '35%',
         format: '$%v',
-        values: `${Math.floor((Math.min(...this.chartData.h) * 0.99) / 10) * 10}:
+        values: `${
+          Math.floor((Math.min(...this.chartData.h) * 0.99) / 10) * 10
+        }:
           ${Math.ceil((Math.max(...this.chartData.l) * 1.02) / 10) * 10}`,
         label: {
           text: 'Prices',
