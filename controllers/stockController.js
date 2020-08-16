@@ -4,11 +4,16 @@ const chartConfigService = require('../services/chartConfigService');
 
 const baseUrl = 'https://finnhub.io/api/v1/';
 const token = config.get('finnHubApiKey');
+const lastViewedSymbolsArray = [];
 
 const showStockInformation = (req, res) => {
   let data = [];
   const ticker = req.query.ticker.toUpperCase();
-
+  const lastViewedSymbols = addSymbolToLastViewed(
+    ticker,
+    lastViewedSymbolsArray
+  );
+  console.log(lastViewedSymbols);
   Promise.all([
     axios.get(baseUrl + 'stock/profile2', {
       params: {
@@ -71,9 +76,22 @@ const showStockInformation = (req, res) => {
         price,
         chartConfig,
         news,
+        lastViewedSymbols,
       });
     })
     .catch((error) => console.log('Something went wrong:', error));
 };
+
+function addSymbolToLastViewed(symbol, lastViewedSymbolsArray) {
+  if (!lastViewedSymbolsArray.includes(symbol)) {
+    lastViewedSymbolsArray.unshift(symbol);
+
+    if (lastViewedSymbolsArray.length > 3) {
+      lastViewedSymbolsArray.splice(3, 1);
+    }
+  }
+
+  return lastViewedSymbolsArray;
+}
 
 module.exports = { showStockInformation };
