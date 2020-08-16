@@ -56,6 +56,7 @@ const showIndex = (req, res) => {
     .then((response) => {
       response.map((r) => {
         if (r !== undefined) {
+          console.log(r.data);
           data.push(r.data);
         }
       });
