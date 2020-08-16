@@ -1,5 +1,6 @@
 const axios = require('axios');
 const config = require('config');
+const moment = require('moment');
 const chartConfigService = require('../services/chartConfigService');
 
 const finnHubBaseUrl = 'https://finnhub.io/api/v1/';
@@ -25,20 +26,8 @@ const showIndex = (req, res) => {
     }),
     axios.get(finnHubBaseUrl + 'calendar/earnings', {
       params: {
-        from: new Date(
-          new Date().setDate(new Date().getDate() - 2)
-        ).toLocaleDateString('nl-BE', {
-          year: 'numeric',
-          month: '2-digit',
-          day: '2-digit',
-        }),
-        to: new Date(
-          new Date().setDate(new Date().getDate() + 2)
-        ).toLocaleDateString('nl-BE', {
-          year: 'numeric',
-          month: '2-digit',
-          day: '2-digit',
-        }),
+        from: moment().subtract(2, 'days').format('YYYY-MM-DD'),
+        to: moment().add(2, 'days').format('YYYY-MM-DD'),
         token: finnHubToken,
       },
     }),
@@ -56,7 +45,7 @@ const showIndex = (req, res) => {
     .then((response) => {
       response.map((r) => {
         if (r !== undefined) {
-          //console.log(r.data);
+          console.log(r.data);
           data.push(r.data);
         }
       });

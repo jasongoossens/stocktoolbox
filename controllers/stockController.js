@@ -1,5 +1,6 @@
 const axios = require('axios');
 const config = require('config');
+const moment = require('moment');
 const chartConfigService = require('../services/chartConfigService');
 const symbolAdderService = require('../services/recentTickerService');
 
@@ -41,18 +42,8 @@ const showStockInformation = (req, res) => {
     axios.get(baseUrl + 'company-news/', {
       params: {
         symbol: ticker,
-        from: new Date(
-          new Date().setFullYear(new Date().getFullYear() - 1)
-        ).toLocaleDateString('nl-BE', {
-          year: 'numeric',
-          month: '2-digit',
-          day: '2-digit',
-        }),
-        to: new Date().toLocaleDateString('nl-BE', {
-          year: 'numeric',
-          month: '2-digit',
-          day: '2-digit',
-        }),
+        from: moment().subtract(1, 'years').format('YYYY-MM-DD'),
+        to: moment().format('YYYY-MM-DD'),
         token: token,
       },
     }),
