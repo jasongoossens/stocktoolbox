@@ -56,14 +56,14 @@ const showIndex = (req, res) => {
     .then((response) => {
       response.map((r) => {
         if (r !== undefined) {
-          console.log(r.data);
+          //console.log(r.data);
           data.push(r.data);
         }
       });
 
       const [news, calendar, indexCharts] = data;
       const earningsCalendar = sanitizeEarningsData(calendar);
-      console.log('EC is:', earningsCalendar);
+      //console.log('EC is:', earningsCalendar);
 
       const indexPricesArray = [];
 
@@ -111,5 +111,11 @@ function sanitizeEarningsData(calendar) {
 
   return earningsCalendar;
 }
+
+axios.interceptors.request.use((config) => {
+  /** In dev, intercepts request and logs it into console for dev */
+  console.info('✉️ ', config);
+  return config;
+});
 
 module.exports = { showIndex };
