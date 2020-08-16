@@ -1,6 +1,7 @@
 const axios = require('axios');
 const config = require('config');
 const chartConfigService = require('../services/chartConfigService');
+const addSymbolToLastViewed = require('../services/recentTickerService');
 
 const baseUrl = 'https://finnhub.io/api/v1/';
 const token = config.get('finnHubApiKey');
@@ -13,7 +14,11 @@ const showStockInformation = (req, res) => {
     ticker,
     lastViewedSymbolsArray
   );
-  console.log(lastViewedSymbols);
+
+  res.cookie('lastViewedSymbols', lastViewedSymbols, {
+    expire: Date.now() + 60 * 60 * 24 * 7,
+  });
+
   Promise.all([
     axios.get(baseUrl + 'stock/profile2', {
       params: {
@@ -70,28 +75,18 @@ const showStockInformation = (req, res) => {
       chartService.sanitizeFinnHubData(chart);
       const chartConfig = chartService.createStockConfig(company.name, -150);
 
+      const recentlyViewedSymbols = req.cookies.lastViewedSymbols;
+
       res.render('stock', {
         title: ticker + ': ' + company.name,
         company,
         price,
         chartConfig,
         news,
-        lastViewedSymbols,
+        recentlyViewedSymbols,
       });
     })
     .catch((error) => console.log('Something went wrong:', error));
 };
-
-function addSymbolToLastViewed(symbol, lastViewedSymbolsArray) {
-  if (!lastViewedSymbolsArray.includes(symbol)) {
-    lastViewedSymbolsArray.unshift(symbol);
-
-    if (lastViewedSymbolsArray.length > 3) {
-      lastViewedSymbolsArray.splice(3, 1);
-    }
-  }
-
-  return lastViewedSymbolsArray;
-}
 
 module.exports = { showStockInformation };

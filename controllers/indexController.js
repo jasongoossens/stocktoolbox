@@ -90,6 +90,8 @@ const showIndex = (req, res) => {
         vixChartConfig = vixChartService.createIndexConfig('VIX');
       }
 
+      const recentlyViewedSymbols = req.cookies.lastViewedSymbols;
+      
       res.render('index', {
         title: 'Index',
         news,
@@ -98,6 +100,7 @@ const showIndex = (req, res) => {
         nasdaqChartConfig,
         vixChartConfig,
         apiError,
+        recentlyViewedSymbols,
       });
     })
     .catch((error) => console.log('Something went wrong:', error));

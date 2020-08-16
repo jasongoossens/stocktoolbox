@@ -2,11 +2,15 @@
   <h1 class="nav-link">
     <a href="/">StockToolbox</a>
   </h1>
-
+  <% recentlyViewedSymbols.map(symbol => { %>
+  <p><%= symbol %></p>
+  <% }) %>
   <div class="search-bar">
     <form action="/stock">
       <input type="text" name="ticker" placeholder="ticker" />
-      <button type="submit"><i class="fa fa-search"></i></button>
+      <button type="submit">
+        <i class="fa fa-search"></i>
+      </button>
     </form>
   </div>
 </nav>
