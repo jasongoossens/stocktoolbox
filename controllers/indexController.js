@@ -44,7 +44,6 @@ const showIndex = (req, res) => {
     }),
     // TODO: need to add caching here - limit is 12 req/minutes or 800/day
     // surpassing the limit results in a code 429
-
     axios.get(twelveDataBaseUrl + 'time_series', {
       params: {
         symbol: 'GSPC,IXIC,VIX',
@@ -63,7 +62,7 @@ const showIndex = (req, res) => {
 
       const [news, calendar, indexCharts] = data;
       const earningsCalendar = sanitizeEarningsData(calendar);
-      console.log(earningsCalendar);
+      console.log('EC is:', earningsCalendar);
 
       const indexPricesArray = [];
 
