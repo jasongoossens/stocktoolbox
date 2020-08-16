@@ -40,9 +40,9 @@ class ChartConfigService {
 
   createIndexConfig(name, chartSize = -253) {
     // TODO: dates are backwards
-    console.log(this.prices);
-    console.log(this.dates);
-    console.log(this.volumes);
+    // console.log(this.prices);
+    // console.log(this.dates);
+    // console.log(this.volumes);
     return JSON.stringify({
       type: 'stock',
 
