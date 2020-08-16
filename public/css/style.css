@@ -39,6 +39,24 @@ nav .nav-link a:hover {
   color: #3d3a43;
 }
 
+.search-container {
+  display: flex;
+  align-items: center;
+}
+
+.recent-symbol-container {
+  display: flex;
+  margin-right: 5px;
+}
+
+.recent-symbol-container .symbol {
+  font-size: 1.2rem;
+  background-color: #425f80;
+  margin: 0 3px;
+  padding: 10px 15px;
+  border-radius: 20px;
+}
+
 .search-bar {
   display: inline-block;
   background-color: #6382a5;
