@@ -32,6 +32,10 @@ class ChartConfigService {
         this.volumes.push(chartData[element].volume);
     }
 
+    this.dates.reverse();
+    this.prices.reverse();
+    this.volumes.reverse();
+
     for (const element in chartData) {
       this.twelveDataHighPrices.push(parseFloat(chartData[element].high));
       this.twelveDataLowPrices.push(parseFloat(chartData[element].low));
@@ -39,10 +43,6 @@ class ChartConfigService {
   }
 
   createIndexConfig(name, chartSize = -253) {
-    // TODO: dates are backwards
-    // console.log(this.prices);
-    // console.log(this.dates);
-    // console.log(this.volumes);
     return JSON.stringify({
       type: 'stock',
 
