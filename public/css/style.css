@@ -56,7 +56,7 @@ nav {
 .nav-elements {
   display: inline-flex;
   justify-content: space-between;
-  width: 95%;
+  width: 96%;
 }
 
 nav .nav-link a {
@@ -150,7 +150,7 @@ nav .nav-link a:hover {
 }
 
 .theme-switcher i {
-  margin: 0 5px;
+  margin: 0 10px;
   cursor: pointer;
 }
 
