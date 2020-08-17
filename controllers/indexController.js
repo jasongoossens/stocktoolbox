@@ -100,10 +100,4 @@ function sanitizeEarningsData(calendar) {
   return earningsCalendar;
 }
 
-axios.interceptors.request.use((config) => {
-  /** In dev, intercepts request and logs it into console for dev */
-  console.info('✉️ ', config);
-  return config;
-});
-
 module.exports = { showIndex };
