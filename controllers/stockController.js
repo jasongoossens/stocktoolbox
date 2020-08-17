@@ -5,7 +5,9 @@ const chartConfigService = require('../services/chartConfigService');
 const symbolAdderService = require('../services/recentTickerService');
 
 const baseUrl = 'https://finnhub.io/api/v1/';
-const token = config.get('finnHubApiKey');
+const finnHubToken = process.env.FINNHUB_API_KEY || config.get('finnHubApiKey');
+const twelveDataToken =
+  process.env.TWELVEDATA_API_KEY || config.get('twelveDataApiKey');
 
 const showStockInformation = (req, res) => {
   let data = [];

@@ -5,8 +5,9 @@ const chartConfigService = require('../services/chartConfigService');
 
 const finnHubBaseUrl = 'https://finnhub.io/api/v1/';
 const twelveDataBaseUrl = 'https://api.twelvedata.com/';
-const finnHubToken = config.get('finnHubApiKey');
-const twelveDataToken = config.get('twelveDataApiKey');
+const finnHubToken = process.env.FINNHUB_API_KEY || config.get('finnHubApiKey');
+const twelveDataToken =
+  process.env.TWELVEDATA_API_KEY || config.get('twelveDataApiKey');
 
 const showIndex = (req, res) => {
   let data = [];

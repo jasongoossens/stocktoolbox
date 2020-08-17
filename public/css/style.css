@@ -4,8 +4,8 @@
   --blue-theme-nav-link-hover-color: #3d3a43;
   --blue-theme-main-bg-color: #8fadce;
   --blue-theme-element-bg-color: rgba(99, 130, 165, 0.85);
-  --element-border-radius: 0px;
-  --sub-element-border-radius: 0px;
+  --element-border-radius: 12px;
+  --sub-element-border-radius: 8px;
   --blue-theme-element-emphasis-color: #243c57;
   --blue-theme-element-border-color: white;
   --blue-theme-element-hover-color: #425f80;
