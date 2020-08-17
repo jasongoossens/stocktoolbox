@@ -1,4 +1,4 @@
 {
-  "finnHubApiKey": "add your api key here and rename this file to default.json",
-  "twelveDataApiKey": "add your api key here and rename this file to default.json"
+  "finnHubApiKey": "Add your Finnhub api key here and rename this file to default.json",
+  "twelveDataApiKey": "Add your TwelveData api key here"
 }
