@@ -1,9 +1,11 @@
 :root {
+  /* blue theme */
   --blue-theme-text-color: white;
   --blue-theme-nav-link-hover-color: #3d3a43;
   --blue-theme-main-bg-color: #8fadce;
-  --blue-theme-container-bg-color: #6382a5;
-  --blue-theme-element-bg-color: #6382a5;
+  --blue-theme-element-bg-color: rgba(99, 130, 165, 0.85);
+  --element-border-radius: 0px;
+  --sub-element-border-radius: 0px;
   --blue-theme-element-emphasis-color: #243c57;
   --blue-theme-element-border-color: white;
   --blue-theme-element-hover-color: #425f80;
@@ -14,20 +16,21 @@
   --blue-theme-scrollbar-thumb-color: #425f80;
   --blue-theme-scrollbar-thumb-hover-color: #243c57;
   --error-element-bg-color: rgb(255, 70, 70);
-  --colorful-theme-text-color: white;
-  --colorful-theme-nav-link-hover-color: #3d3a43;
-  --colorful-theme-main-bg-color: #8fadce;
-  --colorful-theme-container-bg-color: #6382a5;
-  --colorful-theme-element-bg-color: #6382a5;
-  --colorful-theme-element-emphasis-color: #243c57;
-  --colorful-theme-element-border-color: white;
-  --colorful-theme-element-hover-color: #425f80;
-  --colorful-theme-sub-element-bg-color: #425f80;
-  --colorful-theme-input-text-color: black;
-  --colorful-theme-input-placeholder-color: #8fadce;
-  --colorful-theme-scrollbar-track-color: #bed5ef;
-  --colorful-theme-scrollbar-thumb-color: #425f80;
-  --colorful-theme-scrollbar-thumb-hover-color: #243c57;
+  /* dark theme */
+  --dark-theme-text-color: white;
+  --dark-theme-nav-link-hover-color: #3d3a43;
+  --dark-theme-main-bg-color: #8fadce;
+  --dark-theme-container-bg-color: #6382a5;
+  --dark-theme-element-bg-color: #6382a5;
+  --dark-theme-element-emphasis-color: #243c57;
+  --dark-theme-element-border-color: white;
+  --dark-theme-element-hover-color: #425f80;
+  --dark-theme-sub-element-bg-color: #425f80;
+  --dark-theme-input-text-color: black;
+  --dark-theme-input-placeholder-color: #8fadce;
+  --dark-theme-scrollbar-track-color: #bed5ef;
+  --dark-theme-scrollbar-thumb-color: #425f80;
+  --dark-theme-scrollbar-thumb-hover-color: #243c57;
 }
 
 * {
@@ -39,24 +42,27 @@
 }
 
 body {
+  background-image: url('/images/wallstreet.jpg');
   background-color: var(--blue-theme-main-bg-color);
 }
 
 nav {
-  padding: 5px 15px;
+  padding: 5px 0 5px 15px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   background-color: var(--blue-theme-element-bg-color);
 }
 
-nav .nav-link {
-  display: inline-block;
-  font-weight: 400;
-  font-size: 3rem;
+.nav-elements {
+  display: inline-flex;
+  justify-content: space-between;
+  width: 95%;
 }
 
 nav .nav-link a {
+  display: inline-block;
+  font-weight: 400;
+  font-size: 3rem;
   text-decoration: none;
   transition: color 150ms ease-in;
 }
@@ -137,6 +143,21 @@ nav .nav-link a:hover {
   color: var(--blue-theme-text-color);
 }
 
+.theme-switcher {
+  display: inline-flex;
+  margin-left: 10px;
+  font-size: 2rem;
+}
+
+.theme-switcher i {
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.theme-switcher i:hover {
+  color: var(--blue-theme-nav-link-hover-color);
+}
+
 ::-webkit-scrollbar {
   width: 11px;
   scroll-behavior: smooth !important;
@@ -144,14 +165,14 @@ nav .nav-link a:hover {
 
 ::-webkit-scrollbar-track {
   background: var(--blue-theme-scrollbar-track-color);
-  border-top-right-radius: 12px;
-  border-bottom-right-radius: 12px;
+  border-top-right;-radius: var(--element-border-radius);
+  border-bottom-right-radius: var(--element-border-radius);
 }
 
 ::-webkit-scrollbar-thumb {
   background: var(--blue-theme-scrollbar-thumb-color);
-  border-top-right-radius: 12px;
-  border-bottom-right-radius: 12px;
+  border-top-right-radius: var(--element-border-radius);
+  border-bottom-right-radius: var(--element-border-radius);
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -169,8 +190,8 @@ nav .nav-link a:hover {
 
 .market-info-container {
   padding: 10px;
-  background-color: var(--blue-theme-container-bg-color);
-  border-radius: 12px;
+  background-color: var(--blue-theme-element-bg-color);
+  border-radius: var(--element-border-radius);
 }
 
 .news-container {
@@ -202,7 +223,7 @@ nav .nav-link a:hover {
 .container-item {
   margin: 15px 0;
   border: 1px solid var(--blue-theme-element-border-color);
-  border-radius: 5px;
+  border-radius: var(--sub-element-border-radius);
   padding: 5px;
 }
 
@@ -252,9 +273,9 @@ nav .nav-link a:hover {
 }
 
 .chart-container .chart {
-  margin-bottom: 5px;
+  margin-bottom: 8px;
   height: calc(calc(100% - 38px) / 3);
-  border-radius: 10px;
+  border-radius: var(--sub-element-border-radius);
 }
 
 #chart {
