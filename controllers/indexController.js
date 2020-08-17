@@ -27,7 +27,7 @@ const showIndex = (req, res) => {
     }),
     axios.get(finnHubBaseUrl + 'calendar/earnings', {
       params: {
-        from: moment().subtract(2, 'days').format('YYYY-MM-DD'),
+        from: moment().format('YYYY-MM-DD'),
         to: moment().add(2, 'days').format('YYYY-MM-DD'),
         token: finnHubToken,
       },
