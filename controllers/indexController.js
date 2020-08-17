@@ -61,6 +61,14 @@ const showIndex = (req, res) => {
           message: 'I encountered an error while contacting the API',
           code: indexCharts.message,
         };
+
+        return res.render('index', {
+          title: 'Index',
+          news,
+          earningsCalendar,
+          apiError,
+          recentSymbolsArray,
+        });
       } else {
         // Order is S&P, Nasdaq, VIX
         for (const element in indexCharts) {
