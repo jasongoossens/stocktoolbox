@@ -51,7 +51,6 @@ const showIndex = (req, res) => {
 
       const [news, calendar, indexCharts] = data;
       const earningsCalendar = sanitizeEarningsData(calendar);
-      //console.log('EC is:', earningsCalendar);
 
       const indexPricesArray = [];
 

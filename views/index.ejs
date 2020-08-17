@@ -23,7 +23,7 @@
 				<% }}) %>
 			</div>
 			<div class="calendar-container market-info-container">
-				<h1>Earnings calendar (-2d to +2d)</h1>
+				<h1>Earnings calendar</h1>
 				<% earningsCalendar.forEach(event => { %>
 					<div class="calendar-event container-item <%= event.epsActual !=0 ? " past-earnings" : " " %>">
 						<a href="/stock?ticker=<%= event.symbol %>">
