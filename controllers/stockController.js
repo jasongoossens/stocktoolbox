@@ -19,13 +19,13 @@ const showStockInformation = (req, res) => {
     axios.get(baseUrl + 'stock/profile2', {
       params: {
         symbol: ticker,
-        token: token,
+        token: finnHubToken,
       },
     }),
     axios.get(baseUrl + 'quote', {
       params: {
         symbol: ticker,
-        token: token,
+        token: finnHubToken,
       },
     }),
     axios.get(baseUrl + 'stock/candle', {
@@ -38,7 +38,7 @@ const showStockInformation = (req, res) => {
           .substr(0, 10),
         to: Date.now().toString().substr(0, 10),
         symbol: ticker,
-        token: token,
+        token: finnHubToken,
       },
     }),
     axios.get(baseUrl + 'company-news/', {
@@ -46,7 +46,7 @@ const showStockInformation = (req, res) => {
         symbol: ticker,
         from: moment().subtract(1, 'years').format('YYYY-MM-DD'),
         to: moment().format('YYYY-MM-DD'),
-        token: token,
+        token: finnHubToken,
       },
     }),
   ])
