@@ -14,6 +14,20 @@
   --blue-theme-scrollbar-thumb-color: #425f80;
   --blue-theme-scrollbar-thumb-hover-color: #243c57;
   --error-element-bg-color: rgb(255, 70, 70);
+  --colorful-theme-text-color: white;
+  --colorful-theme-nav-link-hover-color: #3d3a43;
+  --colorful-theme-main-bg-color: #8fadce;
+  --colorful-theme-container-bg-color: #6382a5;
+  --colorful-theme-element-bg-color: #6382a5;
+  --colorful-theme-element-emphasis-color: #243c57;
+  --colorful-theme-element-border-color: white;
+  --colorful-theme-element-hover-color: #425f80;
+  --colorful-theme-sub-element-bg-color: #425f80;
+  --colorful-theme-input-text-color: black;
+  --colorful-theme-input-placeholder-color: #8fadce;
+  --colorful-theme-scrollbar-track-color: #bed5ef;
+  --colorful-theme-scrollbar-thumb-color: #425f80;
+  --colorful-theme-scrollbar-thumb-hover-color: #243c57;
 }
 
 * {
