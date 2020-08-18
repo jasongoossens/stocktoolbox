@@ -1,6 +1,6 @@
 :root {
   /* barebones theme */
-  --barebones-theme-text-color: red;
+  --barebones-theme-text-color: white;
   --barebones-theme-nav-link-hover-color: #3d3a43;
   --barebones-theme-main-bg-color: #8fadce;
   --barebones-theme-element-bg-color: rgba(99, 130, 165, 0.925);
