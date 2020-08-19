@@ -1,44 +1,62 @@
 :root {
-  /* barebones theme */
-  --barebones-theme-text-color: white;
-  --barebones-theme-nav-link-hover-color: #3d3a43;
-  --barebones-theme-main-bg-color: #8fadce;
-  --barebones-theme-element-bg-color: rgba(99, 130, 165, 0.925);
+  --white: white;
+  --light-blue-00: #bed5ef;
+  --light-blue-01: #8fadce;
+  --medium-blue: rgba(99, 130, 165, 0.925);
+  --dark-blue-00: #425f80;
+  --dark-blue-01: #243c57;
+  --dark-grey: #3d3a43;
+  --red: rgb(255, 70, 70);
+}
+
+.barebones {
+  --text-color: var(--white);
+  --nav-link-hover-color: var(--dark-grey);
+  --main-bg-color: var(--light-blue-01);
+  --element-bg-color: var(--medium-blue);
   --element-border-radius: 0px;
   --sub-element-border-radius: 0px;
-  --barebones-theme-element-emphasis-color: #243c57;
-  --barebones-theme-element-border-color: white;
-  --barebones-theme-element-hover-color: #425f80;
-  --barebones-theme-sub-element-bg-color: #425f80;
-  --barebones-theme-input-text-color: black;
-  --barebones-theme-input-placeholder-color: #8fadce;
-  --barebones-theme-scrollbar-track-color: rgba(99, 130, 165, 0.5);
-  --barebones-theme-scrollbar-track-color: #bed5ef;
-  --barebones-theme-scrollbar-thumb-color: #425f80;
-  --barebones-theme-scrollbar-thumb-hover-color: #243c57;
-  --barebones-theme-container-item-margin: 0px;
-  --barebones-theme-container-item-border-top: none;
-  --barebones-theme-container-item-border-right: none;
-  --barebones-theme-container-item-border-bottom: 1px solid
-    var(--barebones-theme-element-border-color);
-  --barebones-theme-container-item-border-left: none;
-  --error-element-bg-color: rgb(255, 70, 70);
-  /* colorful theme */
-  --colorful-theme-text-color: white;
-  --colorful-theme-nav-link-hover-color: #3d3a43;
-  --colorful-theme-main-bg-color: #8fadce;
-  --colorful-theme-container-bg-color: #6382a5;
-  --colorful-theme-element-bg-color: #6382a5;
-  --colorful-theme-element-emphasis-color: #243c57;
-  --colorful-theme-element-border-color: white;
-  --colorful-theme-element-hover-color: #425f80;
-  --colorful-theme-sub-element-bg-color: #425f80;
-  --colorful-theme-input-text-color: black;
-  --colorful-theme-input-placeholder-color: #8fadce;
-  --colorful-theme-scrollbar-track-color: #bed5ef;
-  --colorful-theme-scrollbar-thumb-color: #425f80;
-  --colorful-theme-scrollbar-thumb-hover-color: #243c57;
-  --colorful-theme-container-item-margin: 15px 0;
+  --element-emphasis-color: var(--dark-blue-01);
+  --element-border-color: var(--white);
+  --element-hover-color: var(--dark-blue-00);
+  --sub-element-bg-color: var(--dark-blue-00);
+  --input-text-color: black;
+  --input-placeholder-color: var(--light-blue-01);
+  --scrollbar-track-color: var(--medium-blue);
+  --scrollbar-track-colorv: var(--light-blue-00);
+  --scrollbar-thumb-color: var(--dark-blue-00);
+  --scrollbar-thumb-hover-color: #var(--dark-blue);
+  --container-item-margin: 0px;
+  --container-item-border-top: none;
+  --container-item-border-right: none;
+  --container-item-border-bottom: 1px solid var(--element-border-color);
+  --container-item-border-left: none;
+  --error-element-bg-color: var(rgb(255, 70, 70));
+}
+
+.colorful {
+  --text-color: var(--red);
+  --nav-link-hover-color: var(--dark-grey);
+  --main-bg-color: var(--light-blue-01);
+  --element-bg-color: var(--medium-blue);
+  --element-border-radius: 0px;
+  --sub-element-border-radius: 0px;
+  --element-emphasis-color: var(--dark-blue-01);
+  --element-border-color: var(--white);
+  --element-hover-color: var(--dark-blue-00);
+  --sub-element-bg-color: var(--dark-blue-00);
+  --input-text-color: black;
+  --input-placeholder-color: var(--light-blue-01);
+  --scrollbar-track-color: var(--medium-blue);
+  --scrollbar-track-colorv: var(--light-blue-00);
+  --scrollbar-thumb-color: var(--dark-blue-00);
+  --scrollbar-thumb-hover-color: #var(--dark-blue);
+  --container-item-margin: 0px;
+  --container-item-border-top: none;
+  --container-item-border-right: none;
+  --container-item-border-bottom: 1px solid var(--element-border-color);
+  --container-item-border-left: none;
+  --error-element-bg-color: var(rgb(255, 70, 70));
 }
 
 * {
@@ -46,19 +64,19 @@
   padding: 0;
   margin: 0;
   font-family: 'Roboto', sans-serif;
-  color: var(--barebones-theme-text-color);
+  color: var(--text-color);
 }
 
 body {
   background-image: url('/images/wallstreet.jpg');
-  background-color: var(--barebones-theme-main-bg-color);
+  background-color: var(--main-bg-color);
 }
 
 nav {
   padding: 5px 0 5px 15px;
   display: flex;
   align-items: center;
-  background-color: var(--barebones-theme-element-bg-color);
+  background-color: var(--element-bg-color);
 }
 
 .nav-elements {
@@ -76,7 +94,7 @@ nav .nav-link a {
 }
 
 nav .nav-link a:hover {
-  color: var(--barebones-theme-nav-link-hover-color);
+  color: var(--nav-link-hover-color);
 }
 
 .search-container {
@@ -91,7 +109,7 @@ nav .nav-link a:hover {
 
 .recent-symbol-container .symbol {
   font-size: 1.2rem;
-  background-color: var(--barebones-theme-sub-element-bg-color);
+  background-color: var(--sub-element-bg-color);
   margin: 0 3px;
   padding: 8px 15px;
   border-radius: 20px;
@@ -110,7 +128,7 @@ nav .nav-link a:hover {
 }
 
 .search-bar input[type='text'] {
-  color: var(--barebones-theme-input-text-color);
+  color: var(--input-text-color);
   height: 3rem;
   width: 8ch;
   font-size: 2.5rem;
@@ -121,7 +139,7 @@ nav .nav-link a:hover {
 }
 
 .search-bar input[type='text']::placeholder {
-  color: var(--barebones-theme-input-placeholder-color);
+  color: var(--input-placeholder-color);
 }
 
 .search-bar input[type='text']:focus {
@@ -132,7 +150,7 @@ nav .nav-link a:hover {
   height: 3rem;
   font-size: 2rem;
   padding: 0 15px 0 15px;
-  background-color: var(--barebones-theme-input-placeholder-color);
+  background-color: var(--input-placeholder-color);
   text-align: center;
   border: none;
   border-radius: 0 25px 25px 0;
@@ -148,7 +166,7 @@ nav .nav-link a:hover {
 }
 
 .search-bar i {
-  color: var(--barebones-theme-text-color);
+  color: var(--text-color);
 }
 
 .theme-switcher {
@@ -163,7 +181,7 @@ nav .nav-link a:hover {
 }
 
 .theme-switcher i:hover {
-  color: var(--barebones-theme-nav-link-hover-color);
+  color: var(--nav-link-hover-color);
 }
 
 ::-webkit-scrollbar {
@@ -172,19 +190,19 @@ nav .nav-link a:hover {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--barebones-theme-scrollbar-track-color);
+  background: var(--scrollbar-track-color);
   border-top-right-radius: var(--element-border-radius);
   border-bottom-right-radius: var(--element-border-radius);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--barebones-theme-scrollbar-thumb-color);
+  background: var(--scrollbar-thumb-color);
   border-top-right-radius: var(--element-border-radius);
   border-bottom-right-radius: var(--element-border-radius);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--barebones-theme-scrollbar-thumb-hover-color);
+  background: var(--scrollbar-thumb-hover-color);
 }
 
 .main-container {
@@ -198,7 +216,7 @@ nav .nav-link a:hover {
 
 .market-info-container {
   padding: 10px;
-  background-color: var(--barebones-theme-element-bg-color);
+  background-color: var(--element-bg-color);
   border-radius: var(--element-border-radius);
 }
 
@@ -239,17 +257,17 @@ nav .nav-link a:hover {
 }
 
 .container-item {
-  margin: var(--barebones-theme-container-item-margin);
-  border-top: var(--barebones-theme-container-item-border-top);
-  border-right: var(--barebones-theme-container-item-border-right);
-  border-bottom: var(--barebones-theme-container-item-border-bottom);
-  border-left: var(--barebones-theme-container-item-border-left);
+  margin: var(--container-item-margin);
+  border-top: var(--container-item-border-top);
+  border-right: var(--container-item-border-right);
+  border-bottom: var(--container-item-border-bottom);
+  border-left: var(--container-item-border-left);
   border-radius: var(--sub-element-border-radius);
   padding: 15px 5px;
 }
 
 .container-item:hover {
-  background-color: var(--barebones-theme-element-hover-color);
+  background-color: var(--element-hover-color);
 }
 
 .container-item a {
@@ -279,7 +297,7 @@ nav .nav-link a:hover {
 }
 
 .past-earnings {
-  background-color: var(--barebones-theme-element-emphasis-color);
+  background-color: var(--element-emphasis-color);
 }
 .item-content {
   display: flex;
