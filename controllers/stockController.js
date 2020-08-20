@@ -56,7 +56,7 @@ const showStockInformation = (req, res) => {
       });
 
       const [company, price, chart, news] = data;
-
+      console.log(company);
       const chartService = new chartConfigService();
       chartService.sanitizeFinnHubData(chart);
       const chartConfig = chartService.createStockConfig(company.name, -150);

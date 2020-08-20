@@ -3,17 +3,42 @@
 	<%- include('./partials/head') %>
 	<body class="light">
 		<%- include('./partials/nav') %>
-		<div class="stock-container"></div>
-		<h1><%= company.name %></h1>
-		<p>Country:
-			<%= company.country %></p>
-		<p>Price:
-			<%= price.c %></p>
-		<div id="chart">
-			<h3>Chart</h3>
-			<script>
-				zingchart.render({id: 'chart', data: <%- chartConfig %>});
-			</script>
+		<div class="stock-container">
+			<div class="info-container stock-info-container">
+				<div class="details">
+					<div class="stock-details">
+						<h1><%= company.name %>
+							(<%= company.ticker %>)</h1>
+						<p class="country">Country:
+							<%= company.country %></p>
+						<p class="price">Price:
+							<%= price.c %></p>
+					</div>
+					<div class="metric-titles">
+						<p>Market cap:</p>
+						<p>52wk high:</p>
+						<p>52wk low:</p>
+						<p>ATR:</p>
+						<p title="Ratio of current volume vs 3 month average">Relative volume:</p>
+					</div>
+					<div class="metric-figures">
+						<p><%= (Math.round(company.marketCapitalization)).toLocaleString('nl-BE') %>M</p>
+						<p></p>
+						<p></p>
+						<p></p>
+						<p></p>
+					</div>
+				</div>
+				<div class="chart-container">
+					<div id="chart">
+						<script>
+							zingchart.render({id: 'chart', data: <%- chartConfig %>, height: '100%'});
+						</script>
+					</div>
+				</div>
+			</div>
+			<div class="stock-news-container stock-info-container">test</div>
+			<div class="analysis-container stock-info-container">test</div>
 		</div>
 	</body>
 </html>
