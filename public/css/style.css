@@ -1,5 +1,6 @@
 :root {
   --white: white;
+  --whitesmoke: rgb(226, 226, 226);
   --white-transparent: rgba(255, 255, 255, 0.825);
   --black: black;
   --light-blue-00: #bed5ef;
@@ -11,18 +12,22 @@
   --light-grey-00: #a0a0a0;
   --light-grey-01: #707070;
   --red: rgb(255, 70, 70);
+  --dark-red: rgba(255, 75, 75, 0.808);
   --main-background-image: url('/images/wallstreet.jpg');
 }
 
 .light {
   --text-color: var(--black);
-  --nav-link-hover-color: var(--red); /* header */
+  --nav-link-hover-color: var(--dark-red); /* header */
   --background-image: none; /* main bg image*/
   --main-bg-color: var(--white); /* main bg fallback */
+  /* search header */
+  --header-bg-color: var(--black);
+  --header-text-color: var(--white-transparent);
   /* search bar */
   --input-placeholder-color: var(--black);
   --input-background-color: var(--white);
-  --input-border: 1px solid var(--light-grey-01);
+  --input-border: 1px solid var(--white);
   --input-button-bg-color: var(--light-grey-00);
   /* scroll bar */
   --scrollbar-track-color: var(--light-grey-00);
@@ -35,10 +40,10 @@
   --container-item-border-bottom: 1px solid var(--element-border-color);
   --container-item-border-left: none;
   /* news items, earnings items, etc */
-  --element-bg-color: var(--white-transparent);
+  --element-bg-color: var(--whitesmoke);
   --element-hover-padding: 30px 0px;
   --element-border-radius: 0px;
-  --element-border-color: var(--red);
+  --element-border-color: var(--black);
   /* parts of news items, earnings items, etc */
   --sub-element-bg-color: var(--dark-blue-00);
   --sub-element-border-radius: 0px;
@@ -117,7 +122,7 @@ nav {
   padding: 5px 0 5px 15px;
   display: flex;
   align-items: center;
-  background-color: var(--element-bg-color);
+  background-color: var(--header-bg-color);
 }
 
 .nav-elements {
@@ -128,10 +133,11 @@ nav {
 
 nav .nav-link a {
   display: inline-block;
-  font-weight: 400;
+  font-weight: 100;
   font-size: 3rem;
+  color: var(--header-text-color);
   text-decoration: none;
-  transition: color 150ms ease-in;
+  transition: color 200ms ease-in;
 }
 
 nav .nav-link a:hover {
@@ -177,7 +183,10 @@ nav .nav-link a:hover {
   border-radius: 25px 0 0 25px;
   border: var(--input-border);
   outline: none;
-  padding-left: 25px;
+  padding-left: 18px;
+  /* hack to change bg color after autofill */
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0),
+    inset 0 0 0 100px var(--whitesmoke);
 }
 
 .search-bar input[type='text']::placeholder {
@@ -220,6 +229,8 @@ nav .nav-link a:hover {
 .theme-switcher i {
   margin: 0 10px;
   cursor: pointer;
+  color: var(--header-text-color);
+  transition: color 200ms ease-in;
 }
 
 .theme-switcher i:hover {
