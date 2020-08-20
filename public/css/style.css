@@ -3,9 +3,11 @@
   --whitesmoke: rgb(226, 226, 226);
   --white-transparent: rgba(255, 255, 255, 0.825);
   --black: black;
+  --black-transparent: rgba(0, 0, 0, 0.6);
   --light-blue-00: #bed5ef;
   --light-blue-01: #8fadce;
-  --medium-blue: rgba(99, 130, 165, 0.925);
+  --medium-blue: rgb(99, 130, 165);
+  --medium-blue-transparent: rgba(99, 130, 165, 0.925);
   --dark-blue-00: #425f80;
   --dark-blue-01: #243c57;
   --dark-grey: #3d3a43;
@@ -25,9 +27,11 @@
   --header-bg-color: var(--black);
   --header-text-color: var(--white-transparent);
   /* search bar */
+  --input-padding: 10px;
   --input-placeholder-color: var(--black);
   --input-background-color: var(--white);
   --input-border: 1px solid var(--white);
+  --input-border-radius: 0px;
   --input-button-bg-color: var(--light-grey-00);
   /* scroll bar */
   --scrollbar-track-color: var(--light-grey-00);
@@ -39,69 +43,55 @@
   --container-item-border-right: none;
   --container-item-border-bottom: 1px solid var(--element-border-color);
   --container-item-border-left: none;
+  --container-item-border-radius: 0px;
   /* news items, earnings items, etc */
   --element-bg-color: var(--whitesmoke);
-  --element-hover-padding: 30px 0px;
-  --element-border-radius: 0px;
+  --container-item-hover-padding: 30px 0px;
+  --container-item-border-radius: 0px;
   --element-border-color: var(--black);
   /* parts of news items, earnings items, etc */
-  --sub-element-bg-color: var(--dark-blue-00);
+  --sub-element-bg-color: var(--whitesmoke);
   --sub-element-border-radius: 0px;
-  /* error like API error, etc*/
-  --error-element-bg-color: var(rgb(255, 70, 70));
-}
-
-.barebones {
-  --background-image: var(--main-background-image);
-  --text-color: var(--white);
-  --nav-link-hover-color: var(--dark-grey);
-  --main-bg-color: var(--light-blue-01);
-  --element-bg-color: var(--medium-blue);
-  --element-hover-padding: 15px 5px;
-  --element-border-radius: 0px;
-  --sub-element-border-radius: 0px;
-  --element-emphasis-color: var(--dark-blue-01);
-  --element-border-color: var(--white);
-  --element-hover-color: var(--dark-blue-00);
-  --element-text-hover-color: none;
-  --sub-element-bg-color: var(--dark-blue-00);
-  --input-text-color: black;
-  --input-placeholder-color: var(--light-blue-01);
-  --scrollbar-track-color: var(--light-blue-00);
-  --scrollbar-thumb-color: var(--dark-blue-00);
-  --scrollbar-thumb-hover-color: #var(--dark-blue);
-  --container-item-margin: 0px;
-  --container-item-border-top: none;
-  --container-item-border-right: none;
-  --container-item-border-bottom: 1px solid var(--element-border-color);
-  --container-item-border-left: none;
+  /* errors */
   --error-element-bg-color: var(rgb(255, 70, 70));
 }
 
 .colorful {
-  --text-color: var(--red);
-  --nav-link-hover-color: var(--dark-grey);
-  --main-bg-color: var(--light-blue-01);
-  --element-bg-color: var(--medium-blue);
-  --element-border-radius: 0px;
-  --element-hover-padding: 15px 5px;
-  --sub-element-border-radius: 0px;
-  --element-emphasis-color: var(--dark-blue-01);
-  --element-border-color: var(--white);
-  --element-hover-color: var(--dark-blue-00);
-  --element-text-hover-color: none;
-  --sub-element-bg-color: var(--dark-blue-00);
-  --input-text-color: black;
-  --input-placeholder-color: var(--light-blue-01);
-  --scrollbar-track-color: var(--medium-blue);
+  --text-color: var(--white);
+  --nav-link-hover-color: none; /* header */
+  --background-image: var(--main-background-image); /* main bg image*/
+  --main-bg-color: var(--medium-blue-transparent); /* main bg fallback */
+  /* search header */
+  --header-bg-color: var(--black-transparent);
+  --header-text-color: var(--white-transparent);
+  /* search bar */
+  --input-padding: 15px;
+  --input-placeholder-color: var(--black);
+  --input-background-color: var(--white);
+  --input-border: 1px solid var(--white);
+  --input-border-radius: 25px;
+  --input-button-bg-color: var(--medium-blue);
+  /* scroll bar */
   --scrollbar-track-color: var(--light-blue-00);
   --scrollbar-thumb-color: var(--dark-blue-00);
-  --scrollbar-thumb-hover-color: #var(--dark-blue);
-  --container-item-margin: 0px;
-  --container-item-border-top: none;
-  --container-item-border-right: none;
-  --container-item-border-bottom: 1px solid var(--element-border-color);
-  --container-item-border-left: none;
+  --scrollbar-thumb-hover-color: var(--dark-blue-01);
+  /* container for elements */
+  --container-item-margin: 10px 0;
+  --container-item-border-top: 2px solid var(--element-border-color);
+  --container-item-border-right: 2px solid var(--element-border-color);
+  --container-item-border-bottom: 2px solid var(--element-border-color);
+  --container-item-border-left: 2px solid var(--element-border-color);
+  --container-item-border-radius: 10px;
+  /* news items, earnings items, etc */
+  --element-bg-color: var(--medium-blue-transparent);
+  --container-item-hover-padding: 15px 5px;
+  --container-item-hover-bg-color: var(--dark-blue-00);
+  --element-border-color: var(--black);
+  /* parts of news items, earnings items, etc */
+  --sub-element-color: var(--black);
+  --sub-element-bg-color: var(--whitesmoke);
+  --sub-element-border-radius: 25px;
+  /* errors */
   --error-element-bg-color: var(rgb(255, 70, 70));
 }
 
@@ -111,6 +101,7 @@
   margin: 0;
   font-family: 'Roboto', sans-serif;
   color: var(--text-color);
+  text-decoration: none;
 }
 
 body {
@@ -157,9 +148,18 @@ nav .nav-link a:hover {
 .recent-symbol-container .symbol {
   font-size: 1.2rem;
   background-color: var(--sub-element-bg-color);
+  width: 7ch;
+  text-align: center;
   margin: 0 3px;
   padding: 8px 15px;
-  border-radius: 20px;
+  color: var(--sub-element-color);
+  border-radius: var(--sub-element-border-radius);
+  transition: color 150ms, font-weight 150ms;
+}
+
+.recent-symbol-container .symbol:hover {
+  color: var(--red);
+  font-weight: 700;
 }
 
 .recent-symbol-container a {
@@ -180,10 +180,10 @@ nav .nav-link a:hover {
   height: 3rem;
   width: 8ch;
   font-size: 2.5rem;
-  border-radius: 25px 0 0 25px;
+  border-radius: var(--input-border-radius) 0 0 var(--input-border-radius);
   border: var(--input-border);
   outline: none;
-  padding-left: 18px;
+  padding-left: var(--input-padding);
   /* hack to change bg color after autofill */
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0),
     inset 0 0 0 100px var(--whitesmoke);
@@ -204,7 +204,7 @@ nav .nav-link a:hover {
   background-color: var(--input-button-bg-color);
   text-align: center;
   border: none;
-  border-radius: 0 25px 25px 0;
+  border-radius: 0 var(--input-border-radius) var(--input-border-radius) 0;
   cursor: pointer;
 }
 
@@ -244,14 +244,14 @@ nav .nav-link a:hover {
 
 ::-webkit-scrollbar-track {
   background: var(--scrollbar-track-color);
-  border-top-right-radius: var(--element-border-radius);
-  border-bottom-right-radius: var(--element-border-radius);
+  border-top-right-radius: var(--container-item-border-radius);
+  border-bottom-right-radius: var(--container-item-border-radius);
 }
 
 ::-webkit-scrollbar-thumb {
   background: var(--scrollbar-thumb-color);
-  border-top-right-radius: var(--element-border-radius);
-  border-bottom-right-radius: var(--element-border-radius);
+  border-top-right-radius: var(--container-item-border-radius);
+  border-bottom-right-radius: var(--container-item-border-radius);
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -270,7 +270,7 @@ nav .nav-link a:hover {
 .market-info-container {
   padding: 10px;
   background-color: var(--element-bg-color);
-  border-radius: var(--element-border-radius);
+  border-radius: var(--container-item-border-radius);
 }
 
 .market-info-container h1 {
@@ -314,13 +314,13 @@ nav .nav-link a:hover {
   border-right: var(--container-item-border-right);
   border-bottom: var(--container-item-border-bottom);
   border-left: var(--container-item-border-left);
-  border-radius: var(--sub-element-border-radius);
+  border-radius: var(--container-item-border-radius);
   padding: 15px 5px;
 }
 
 .container-item:hover {
-  padding: var(--element-hover-padding);
-  background-color: var(--element-hover-color);
+  padding: var(--container-item-hover-padding);
+  background-color: var(--container-item-hover-bg-color);
 }
 
 .container-item a {
@@ -350,7 +350,7 @@ nav .nav-link a:hover {
 }
 
 .past-earnings {
-  background-color: var(--element-emphasis-color);
+  background-color: var(--container-item-emphasis-color);
 }
 .item-content {
   display: flex;

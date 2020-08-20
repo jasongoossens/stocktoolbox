@@ -7,8 +7,8 @@
 			<div class="news-container market-info-container">
 				<h1>NEWS</h1>
 				<% news.map(newsItem => { if (newsItem.category != 'technology') { %>
-					<div class="news-event container-item">
-						<a href="<%=newsItem.url%>" target="_blank">
+					<a href="<%=newsItem.url%>" target="_blank">
+						<div class="news-event container-item">
 							<div class="header">
 								<h4><%= newsItem.headline %></h4>
 								<h4 class="item-date"><%= new Date(newsItem.datetime *1000 ).toLocaleDateString('nl-BE', {
@@ -18,8 +18,8 @@
 								  }), %></h4>
 							</div>
 							<p><%= newsItem.summary %></p>
-						</a>
-					</div>
+						</div>
+					</a>
 				<% }}) %>
 			</div>
 			<div class="calendar-container market-info-container">
