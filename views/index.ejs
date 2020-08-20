@@ -65,7 +65,10 @@
 				<% }) %>
 			</div>
 			<div class="market-performance-container market-info-container">
-				<h1>CHARTS</h1>
+				<h1>PERFORMANCE
+					<i class="fa fa-line-chart" id="chart-toggler" onclick="toggleBetweenIndicesAndEtfs()"></i>
+					<!-- <i class="fa fa-bar-chart"></i> -->
+				</h1>
 				<%  if (apiError.error) { %>
 					<div class="api-error">
 						<h3><%= apiError.message %></h3>

@@ -7,7 +7,7 @@
   --light-blue-00: #bed5ef;
   --light-blue-01: #8fadce;
   --medium-blue: rgb(99, 130, 165);
-  --medium-blue-transparent: rgba(99, 130, 165, 0.925);
+  --medium-blue-transparent: rgba(99, 130, 165, 0.825);
   --dark-blue-00: #425f80;
   --dark-blue-01: #243c57;
   --dark-grey: #3d3a43;
@@ -21,6 +21,7 @@
 .light {
   --text-color: var(--black);
   --nav-link-hover-color: var(--dark-red); /* header */
+  --nav-icon-hover-color: var(--red);
   --background-image: none; /* main bg image*/
   --main-bg-color: var(--white); /* main bg fallback */
   /* search header */
@@ -44,6 +45,7 @@
   --container-item-border-bottom: 1px solid var(--element-border-color);
   --container-item-border-left: none;
   --container-item-border-radius: 0px;
+  --container-item-hover-color: var(--red);
   /* news items, earnings items, etc */
   --element-bg-color: var(--whitesmoke);
   --container-item-hover-padding: 30px 0px;
@@ -59,6 +61,7 @@
 .colorful {
   --text-color: var(--white);
   --nav-link-hover-color: none; /* header */
+  --nav-icon-hover-color: var(--red);
   --background-image: var(--main-background-image); /* main bg image*/
   --main-bg-color: var(--medium-blue-transparent); /* main bg fallback */
   /* search header */
@@ -234,7 +237,7 @@ nav .nav-link a:hover {
 }
 
 .theme-switcher i:hover {
-  color: var(--nav-link-hover-color);
+  color: var(--nav-icon-hover-color);
 }
 
 ::-webkit-scrollbar {
@@ -275,6 +278,8 @@ nav .nav-link a:hover {
 
 .market-info-container h1 {
   font-weight: 800;
+  margin-bottom: 10px;
+  user-select: none;
 }
 
 .news-container {
@@ -371,8 +376,17 @@ nav .nav-link a:hover {
   justify-content: flex-end;
 }
 
+#chart-toggler {
+  cursor: pointer;
+  transition: color 200ms;
+}
+
+#chart-toggler:hover {
+  color: var(--container-item-hover-color);
+}
+
 .chart-container {
-  height: 97%;
+  height: 96%;
 }
 
 .chart-container .chart {

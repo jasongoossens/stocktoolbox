@@ -29,3 +29,14 @@ function switchTheme() {
     localStorage.setItem('theme', 'colorful');
   }
 }
+
+function toggleBetweenIndicesAndEtfs() {
+  const toggler = document.querySelector('#chart-toggler');
+  if (toggler.classList.contains('fa-line-chart')) {
+    toggler.classList.remove('fa-line-chart');
+    toggler.classList.add('fa-bar-chart');
+  } else {
+    toggler.classList.remove('fa-bar-chart');
+    toggler.classList.add('fa-line-chart');
+  }
+}
