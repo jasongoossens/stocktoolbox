@@ -5,7 +5,7 @@
 		<%- include('./partials/nav') %>
 		<div class="main-container">
 			<div class="news-container market-info-container">
-				<h1>Market news</h1>
+				<h1>NEWS</h1>
 				<% news.map(newsItem => { if (newsItem.category != 'technology') { %>
 					<div class="news-event container-item">
 						<a href="<%=newsItem.url%>" target="_blank">
@@ -23,7 +23,7 @@
 				<% }}) %>
 			</div>
 			<div class="calendar-container market-info-container">
-				<h1>Earnings calendar</h1>
+				<h1>UPCOMING EARNINGS</h1>
 				<% earningsCalendar.forEach(event => { %>
 					<div class="calendar-event container-item <%= event.epsActual !=0 ? " past-earnings" : " " %>">
 						<a href="/stock?ticker=<%= event.symbol %>">
@@ -65,7 +65,7 @@
 				<% }) %>
 			</div>
 			<div class="market-performance-container market-info-container">
-				<h1>Charts</h1>
+				<h1>CHARTS</h1>
 				<%  if (apiError.error) { %>
 					<div class="api-error">
 						<h3><%= apiError.message %></h3>
