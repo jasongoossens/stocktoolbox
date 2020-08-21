@@ -8,6 +8,7 @@
   --light-blue-01: #8fadce;
   --medium-blue: rgb(99, 130, 165);
   --medium-blue-transparent: rgba(99, 130, 165, 0.825);
+  --blue-grey: #8fa4b9;
   --dark-blue-00: #425f80;
   --dark-blue-01: #243c57;
   --dark-grey: #3d3a43;
@@ -29,7 +30,7 @@
   --header-text-color: var(--white-transparent);
   /* search bar */
   --input-padding: 10px;
-  --input-placeholder-color: var(--black);
+  --input-placeholder-color: var(--light-grey-00);
   --input-background-color: var(--white);
   --input-border: 1px solid var(--white);
   --input-border-radius: 0px;
@@ -53,6 +54,7 @@
   --element-border-color: var(--black);
   /* parts of news items, earnings items, etc */
   --sub-element-bg-color: var(--whitesmoke);
+  --sub-element-border-color: var(--light-grey-00);
   --sub-element-border-radius: 0px;
   /* errors */
   --error-element-color: var(--white);
@@ -70,7 +72,7 @@
   --header-text-color: var(--white-transparent);
   /* search bar */
   --input-padding: 15px;
-  --input-placeholder-color: var(--black);
+  --input-placeholder-color: var(--light-grey-00);
   --input-background-color: var(--white);
   --input-border: 1px solid var(--white);
   --input-border-radius: 25px;
@@ -87,7 +89,6 @@
   --container-item-border-left: 2px solid var(--element-border-color);
   --container-item-border-radius: 10px;
   --container-item-hover-color: var(--dark-blue-01);
-  /* news items, earnings items, etc */
   --element-bg-color: var(--medium-blue-transparent);
   --container-item-hover-padding: 15px 5px;
   --container-item-hover-bg-color: var(--dark-blue-00);
@@ -95,6 +96,7 @@
   /* parts of news items, earnings items, etc */
   --sub-element-color: var(--black);
   --sub-element-bg-color: var(--whitesmoke);
+  --sub-element-border-color: var(--blue-grey);
   --sub-element-border-radius: 25px;
   /* errors */
   --error-element-color: var(--white);
@@ -423,23 +425,45 @@ nav .nav-link a:hover {
 .details {
   grid-area: details;
   display: grid;
-  grid-template-columns: 40% 60%;
-  grid-template-rows: 20% 80%;
+  grid-template-rows: 35% 65%;
   grid-template-areas:
-    'stock-details stock-details'
-    'titles figures';
+    'stock-details'
+    'metrics';
+  font-size: 1.2rem;
 }
 
 .details .stock-details {
   grid-area: stock-details;
 }
 
-.details .metric-titles {
-  grid-area: titles;  
+.details .stock-details .name {
+  font-size: 2.2rem;
 }
 
-.details .metric-figures {
-  grid-area: figures;
+.details .stock-details .market-info {
+  font-size: 0.8rem;
+}
+
+.details .stock-details .price {
+  margin-top: 15px;
+  font-size: 1.8rem;
+  font-weight: 800;
+}
+
+.details .stock-metrics {
+  grid-area: metrics;
+}
+
+.details .stock-metrics .metrics-line {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 15px 5px 0;
+  padding-bottom: 5px;
+  border-bottom: 1px solid var(--sub-element-border-color);
+}
+
+.details .metrics-line .metric {
+  text-align: right;
 }
 
 .info-container .chart-container {

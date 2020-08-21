@@ -7,28 +7,43 @@
 			<div class="info-container stock-info-container">
 				<div class="details">
 					<div class="stock-details">
-						<h1><%= company.name %>
-							(<%= company.ticker %>)</h1>
-						<p class="country">Country:
-							<%= company.country %></p>
-						<p class="price">Price:
-							<%= price.c %></p>
+						<h1 class="name"><%= company.name %></h1>
+						<p class="market-info">Country:
+							<%= company.country %>. Trades on
+							<%= company.exchange %></p>
+						<p class="price">
+							<%= new Intl.NumberFormat('en-US',
+							{ style: 'currency', currency: 'USD' }
+						  ).format(price.c) %></p>
 					</div>
-					<div class="metric-titles">
-						<p>Market cap:</p>
-						<p>52wk high:</p>
-						<p>52wk low:</p>
-						<p>ATR:</p>
-						<p title="Ratio of current volume vs 3 month average">Relative volume:</p>
-					</div>
-					<div class="metric-figures">
-						<p><%= (Math.round(company.marketCapitalization)).toLocaleString('nl-BE') %>M</p>
-						<p></p>
-						<p></p>
-						<p></p>
-						<p></p>
+					<div class="stock-metrics">
+						<div class="metrics-line">
+							<div class="title">Sector</div>
+							<div class="metric"><%= company.finnhubIndustry %></div>
+						</div>
+						<div class="metrics-line">
+							<div class="title">Market cap</div>
+							<div class="metric"><%= (Math.round(company.marketCapitalization)).toLocaleString('nl-BE') %>M</div>
+						</div>
+						<div class="metrics-line">
+							<div class="title">52 week high</div>
+							<div class="metric"><%= company.finnhubIndustry %></div>
+						</div>
+						<div class="metrics-line">
+							<div class="title">52 week low</div>
+							<div class="metric"><%= company.finnhubIndustry %></div>
+						</div>
+						<div class="metrics-line">
+							<div class="title">ATR</div>
+							<div class="metric"><%= company.finnhubIndustry %></div>
+						</div>
+						<div class="metrics-line">
+							<div class="title" title="Ratio of current volume vs 3 month average">Relative volume</div>
+							<div class="metric"><%= company.finnhubIndustry %></div>
+						</div>
 					</div>
 				</div>
+
 				<div class="chart-container">
 					<div id="chart">
 						<script>
@@ -37,6 +52,7 @@
 					</div>
 				</div>
 			</div>
+
 			<div class="stock-news-container stock-info-container">test</div>
 			<div class="analysis-container stock-info-container">test</div>
 		</div>
