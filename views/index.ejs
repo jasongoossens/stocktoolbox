@@ -4,7 +4,7 @@
 	<body class="light">
 		<%- include('./partials/nav') %>
 		<div class="index-container">
-			<div class="gitmarket-news-container market-info-container">
+			<div class="market-news-container market-info-container">
 				<h1>NEWS</h1>
 				<% news.map(newsItem => { if (newsItem.category != 'technology') { %>
 					<a href="<%=newsItem.url%>" target="_blank">
@@ -93,6 +93,6 @@
 					<%  } %>
 				</div>
 			</div>
-		</body>
+		</div>
 	</body>
 </html>
