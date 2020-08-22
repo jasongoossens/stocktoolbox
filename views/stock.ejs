@@ -3,8 +3,8 @@
 	<%- include('./partials/head') %>
 	<body class="light">
 		<%- include('./partials/nav') %>
-		<%  if (apiError) { %>
-			<div class="api-error">
+		<%  if (apiError.error) { %>
+			<div class="api-error api-error-stock">
 				<h3><%= apiError.message %></h3>
 				<p>I couldn't find that stock</p>
 				<h3>That's all I can tell you.</h3>

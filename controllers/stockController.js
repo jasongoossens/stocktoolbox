@@ -17,7 +17,6 @@ const showStockInformation = (req, res) => {
     message: '',
   };
   const symbolAdder = new symbolAdderService();
-  symbolAdder.addSymbolToLastViewed(ticker);
 
   Promise.all([
     axios.get(baseUrl + 'stock/profile2', {
@@ -100,12 +99,13 @@ const showStockInformation = (req, res) => {
           error: true,
           message: 'I encountered an error while contacting the API',
         };
-        console.log(apiError.message);
+        console.log('Not found: ', apiError.message);
         return res.render('stock', {
           title: 'Ticker not found',
           apiError,
         });
       } else {
+        symbolAdder.addSymbolToLastViewed(ticker);
         const chartService = new chartConfigService();
         chartService.sanitizeFinnHubData(emaChart);
         const chartConfig = chartService.createStockConfig(company.name, -150);

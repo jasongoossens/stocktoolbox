@@ -313,6 +313,11 @@ nav .nav-link a:hover {
   background-color: var(--error-element-bg-color);
 }
 
+.api-error-stock {
+  margin: 15px;
+  width: 30vw;
+}
+
 .api-error h3:first-child,
 .api-error p {
   margin-bottom: 15px;
