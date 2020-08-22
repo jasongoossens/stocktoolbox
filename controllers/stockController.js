@@ -12,6 +12,10 @@ const twelveDataToken =
 const showStockInformation = (req, res) => {
   let data = [];
   const ticker = req.query.ticker.toUpperCase();
+  let apiError = {
+    error: false,
+    message: '',
+  };
   const symbolAdder = new symbolAdderService();
   symbolAdder.addSymbolToLastViewed(ticker);
 
@@ -28,7 +32,8 @@ const showStockInformation = (req, res) => {
         token: finnHubToken,
       },
     }),
-    axios.get(baseUrl + 'stock/candle', {
+    // EMA
+    axios.get(baseUrl + 'indicator', {
       params: {
         resolution: 'D',
         adjusted: true,
@@ -38,6 +43,38 @@ const showStockInformation = (req, res) => {
           .substr(0, 10),
         to: Date.now().toString().substr(0, 10),
         symbol: ticker,
+        indicator: 'ema',
+        timeperiod: 20,
+        token: finnHubToken,
+      },
+    }), // ATR
+    axios.get(baseUrl + 'indicator', {
+      params: {
+        resolution: 'D',
+        adjusted: true,
+        from: new Date(new Date().setFullYear(new Date().getFullYear() - 1))
+          .getTime()
+          .toString()
+          .substr(0, 10),
+        to: Date.now().toString().substr(0, 10),
+        symbol: ticker,
+        indicator: 'atr',
+        timeperiod: 10,
+        token: finnHubToken,
+      },
+    }), // Bollinger bands
+    axios.get(baseUrl + 'indicator', {
+      params: {
+        resolution: 'D',
+        adjusted: true,
+        from: new Date(new Date().setFullYear(new Date().getFullYear() - 1))
+          .getTime()
+          .toString()
+          .substr(0, 10),
+        to: Date.now().toString().substr(0, 10),
+        symbol: ticker,
+        indicator: 'bbands',
+        timeperiod: 20,
         token: finnHubToken,
       },
     }),
@@ -55,20 +92,34 @@ const showStockInformation = (req, res) => {
         data.push(r.data);
       });
 
-      const [company, price, chart, news] = data;
+      const [company, price, emaChart, atrChart, bbandsChart, news] = data;
       console.log(company);
-      const chartService = new chartConfigService();
-      chartService.sanitizeFinnHubData(chart);
-      const chartConfig = chartService.createStockConfig(company.name, -150);
 
-      res.render('stock', {
-        title: ticker + ': ' + company.name,
-        company,
-        price,
-        chartConfig,
-        news,
-        recentSymbolsArray,
-      });
+      if (Object.keys(company).length === 0) {
+        apiError = {
+          error: true,
+          message: 'I encountered an error while contacting the API',
+        };
+        console.log(apiError.message);
+        return res.render('stock', {
+          title: 'Ticker not found',
+          apiError,
+        });
+      } else {
+        const chartService = new chartConfigService();
+        chartService.sanitizeFinnHubData(emaChart);
+        const chartConfig = chartService.createStockConfig(company.name, -150);
+
+        res.render('stock', {
+          apiError,
+          title: ticker + ': ' + company.name,
+          company,
+          price,
+          chartConfig,
+          news,
+          recentSymbolsArray,
+        });
+      }
     })
     .catch((error) => console.log('Something went wrong:', error));
 };

@@ -21,6 +21,7 @@
 
 .light {
   --text-color: var(--black);
+  --text-color-inverted: var(--white);
   --nav-link-hover-color: var(--dark-red); /* header */
   --nav-icon-hover-color: var(--red);
   --background-image: none; /* main bg image*/
@@ -30,6 +31,7 @@
   --header-text-color: var(--white-transparent);
   /* search bar */
   --input-padding: 10px;
+  --input-text-color: var(--text-color);
   --input-placeholder-color: var(--light-grey-00);
   --input-background-color: var(--white);
   --input-border: 1px solid var(--white);
@@ -63,6 +65,7 @@
 
 .colorful {
   --text-color: var(--white);
+  --text-color-inverted: var(--black);
   --nav-link-hover-color: none; /* header */
   --nav-icon-hover-color: var(--red);
   --background-image: var(--main-background-image); /* main bg image*/
@@ -72,6 +75,7 @@
   --header-text-color: var(--white-transparent);
   /* search bar */
   --input-padding: 15px;
+  --input-text-color: var(--text-color-inverted);
   --input-placeholder-color: var(--light-grey-00);
   --input-background-color: var(--white);
   --input-border: 1px solid var(--white);
@@ -156,7 +160,7 @@ nav .nav-link a:hover {
 .recent-symbol-container .symbol {
   font-size: 1.2rem;
   background-color: var(--sub-element-bg-color);
-  width: 7ch;
+  width: 7.5ch;
   text-align: center;
   margin: 0 3px;
   padding: 8px 15px;
@@ -429,7 +433,7 @@ nav .nav-link a:hover {
   grid-template-areas:
     'stock-details'
     'metrics';
-  font-size: 1.2rem;
+  margin-right: 15px;
 }
 
 .details .stock-details {
@@ -437,7 +441,7 @@ nav .nav-link a:hover {
 }
 
 .details .stock-details .name {
-  font-size: 2.2rem;
+  font-size: 2rem;
 }
 
 .details .stock-details .market-info {
@@ -445,19 +449,21 @@ nav .nav-link a:hover {
 }
 
 .details .stock-details .price {
-  margin-top: 15px;
+  margin-top: 10px;
   font-size: 1.8rem;
   font-weight: 800;
 }
 
 .details .stock-metrics {
   grid-area: metrics;
+  align-self: end;
+  font-size: 1.1rem;
 }
 
 .details .stock-metrics .metrics-line {
   display: flex;
   justify-content: space-between;
-  margin: 0 15px 5px 0;
+  margin-bottom: 5px;
   padding-bottom: 5px;
   border-bottom: 1px solid var(--sub-element-border-color);
 }

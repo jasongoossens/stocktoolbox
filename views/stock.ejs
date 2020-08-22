@@ -3,58 +3,74 @@
 	<%- include('./partials/head') %>
 	<body class="light">
 		<%- include('./partials/nav') %>
-		<div class="stock-container">
-			<div class="info-container stock-info-container">
-				<div class="details">
-					<div class="stock-details">
-						<h1 class="name"><%= company.name %></h1>
-						<p class="market-info">Country:
-							<%= company.country %>. Trades on
-							<%= company.exchange %></p>
-						<p class="price">
-							<%= new Intl.NumberFormat('en-US',
+		<%  if (apiError) { %>
+			<div class="api-error">
+				<h3><%= apiError.message %></h3>
+				<p>I couldn't find that stock</p>
+				<h3>That's all I can tell you.</h3>
+			</div>
+		<% } else { %>
+			<div class="stock-container">
+				<div class="info-container stock-info-container">
+					<div class="details">
+						<div class="stock-details">
+							<h1 class="name"><%= company.name %></h1>
+							<p class="market-info">Country:
+								<%= company.country %>.
+								<%= company.exchange %></p>
+							<p class="price">
+								<%= new Intl.NumberFormat('en-US',
 							{ style: 'currency', currency: 'USD' }
 						  ).format(price.c) %></p>
+						</div>
+						<div class="stock-metrics">
+							<div class="metrics-line">
+								<div class="title">Sector</div>
+								<div class="metric"><%= company.finnhubIndustry %></div>
+							</div>
+							<div class="metrics-line">
+								<div class="title">Market cap</div>
+								<div class="metric"><%= Math.round(company.marketCapitalization) %>M
+									<% if (company.marketCapitalization < 2000) { %>
+										(small cap)
+									<% } else if (company.marketCapitalization > 10000) { %>
+										(large cap)
+									<% } else  { %>
+										(mid cap)
+									<% } %>
+								</div>
+							</div>
+							<div class="metrics-line">
+								<div class="title">52 week high</div>
+								<div class="metric"><%= company.finnhubIndustry %></div>
+							</div>
+							<div class="metrics-line">
+								<div class="title">52 week low</div>
+								<div class="metric"><%= company.finnhubIndustry %></div>
+							</div>
+							<div class="metrics-line">
+								<div class="title">ATR</div>
+								<div class="metric"><%= company.finnhubIndustry %></div>
+							</div>
+							<div class="metrics-line">
+								<div class="title" title="Ratio of current volume vs 3 month average">Relative volume</div>
+								<div class="metric"><%= company.finnhubIndustry %></div>
+							</div>
+						</div>
 					</div>
-					<div class="stock-metrics">
-						<div class="metrics-line">
-							<div class="title">Sector</div>
-							<div class="metric"><%= company.finnhubIndustry %></div>
-						</div>
-						<div class="metrics-line">
-							<div class="title">Market cap</div>
-							<div class="metric"><%= (Math.round(company.marketCapitalization)).toLocaleString('nl-BE') %>M</div>
-						</div>
-						<div class="metrics-line">
-							<div class="title">52 week high</div>
-							<div class="metric"><%= company.finnhubIndustry %></div>
-						</div>
-						<div class="metrics-line">
-							<div class="title">52 week low</div>
-							<div class="metric"><%= company.finnhubIndustry %></div>
-						</div>
-						<div class="metrics-line">
-							<div class="title">ATR</div>
-							<div class="metric"><%= company.finnhubIndustry %></div>
-						</div>
-						<div class="metrics-line">
-							<div class="title" title="Ratio of current volume vs 3 month average">Relative volume</div>
-							<div class="metric"><%= company.finnhubIndustry %></div>
+
+					<div class="chart-container">
+						<div id="chart">
+							<script>
+								zingchart.render({id: 'chart', data: <%- chartConfig %>, height: '100%'});
+							</script>
 						</div>
 					</div>
 				</div>
 
-				<div class="chart-container">
-					<div id="chart">
-						<script>
-							zingchart.render({id: 'chart', data: <%- chartConfig %>, height: '100%'});
-						</script>
-					</div>
-				</div>
+				<div class="stock-news-container stock-info-container">test</div>
+				<div class="analysis-container stock-info-container">test</div>
 			</div>
-
-			<div class="stock-news-container stock-info-container">test</div>
-			<div class="analysis-container stock-info-container">test</div>
-		</div>
+		<% } %>
 	</body>
 </html>
