@@ -35,8 +35,10 @@
   --input-placeholder-color: var(--light-grey-00);
   --input-background-color: var(--white);
   --input-border: 1px solid var(--white);
+  --input-border-inverse: 1px solid var(--black);
   --input-border-radius: 0px;
   --input-button-bg-color: var(--light-grey-00);
+  --input-button-hover-bg-color: none;
   /* scroll bar */
   --scrollbar-track-color: var(--light-grey-00);
   --scrollbar-thumb-color: var(--light-grey-01);
@@ -79,8 +81,10 @@
   --input-placeholder-color: var(--light-grey-00);
   --input-background-color: var(--white);
   --input-border: 1px solid var(--white);
+  --input-border-inverse: 1px solid var(--black);
   --input-border-radius: 25px;
   --input-button-bg-color: var(--medium-blue);
+  --input-button-hover-bg-color: var(--light-blue-01);
   /* scroll bar */
   --scrollbar-track-color: var(--light-blue-00);
   --scrollbar-thumb-color: var(--dark-blue-00);
@@ -224,10 +228,6 @@ nav .nav-link a:hover {
   outline: none;
 }
 
-.not-found-title {
-  margin: 20px;
-}
-
 .search-bar i {
   color: var(--text-color);
 }
@@ -268,6 +268,56 @@ nav .nav-link a:hover {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--scrollbar-thumb-hover-color);
+}
+
+.not-found-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.not-found-content {
+  margin-top: 40px;
+  padding: 20px 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: var(--container-item-border-radius);
+  background-color: var(--element-bg-color);
+}
+
+.not-found-content h1 {
+  font-size: 4rem;
+}
+
+.not-found-content h2 {
+  margin: 10px;
+}
+
+.not-found-content img {
+  width: 20vw;
+}
+
+.actions-container {
+  display: flex;
+  margin-top: 10px;
+}
+
+.not-found-action {
+  border: var(--input-border-inverse);
+  color: var(--text-color);
+  background-color: var(--input-button-bg-color);
+  cursor: pointer;
+  font-size: 1.5rem;
+  margin: 5px;
+  padding: 8px;
+  border-radius: 8px;
+  transition: background-color 300ms;
+}
+
+.not-found-action:hover {
+  color: var(--text-color);
+  background-color: var(--input-button-hover-bg-color);
 }
 
 .index-container {

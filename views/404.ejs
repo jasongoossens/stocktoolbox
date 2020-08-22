@@ -3,7 +3,19 @@
 	<%- include('./partials/head') %>
 	<body>
 		<%- include('./partials/nav') %>
-		<h1 class="not-found-title">Oops, page not found!</h1>
-		<!-- improve this page - add go back button and suggestions -->
+		<div class="not-found-container">
+			<div class="not-found-content">
+				<h1>404</h1>
+				<img src="images/confused.png" alt="Page not found"/>
+				<h2>Oops, page not found...</h2>
+				<h2>What do you want to do?</h2>
+				<div class="actions-container">
+					<div class="not-found-action" onclick="history.back();">Go back?</div>
+					<div class="not-found-action">
+						<a href="/">Go home?</a>
+					</div>
+				</div>
+			</div>
+		</body>
 	</body>
-</html>
+</html></div><!-- improve this page - add go back button and suggestions --></body></html>
