@@ -63,13 +63,16 @@
 					<div class="chart-container">
 						<div id="chart">
 							<script>
-								zingchart.render({id: 'chart', data: <%- chartConfig %>, height: '100%'});
+								zingchart.render({id: 'chart', data: <%- chartConfigWithIndicators %>, height: '100%'});
+// zingchart.render({id: 'chart', data: <%- chartConfigWithIndicators %>, height: '100%'});
 							</script>
 						</div>
 					</div>
+
+
 				</div>
 
-				<div class="stock-news-container stock-info-container">test</div>
+				<div class="stock-news-container stock-info-container"></div>
 				<div class="analysis-container stock-info-container">test</div>
 			</div>
 		<% } %>

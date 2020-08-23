@@ -3,6 +3,7 @@ const config = require('config');
 const moment = require('moment');
 const chartConfigService = require('../services/chartConfigService');
 const symbolAdderService = require('../services/recentTickerService');
+const c = require('config');
 
 const baseUrl = 'https://finnhub.io/api/v1/';
 const finnHubToken = process.env.FINNHUB_API_KEY || config.get('finnHubApiKey');
@@ -91,8 +92,11 @@ const showStockInformation = (req, res) => {
         data.push(r.data);
       });
 
-      const [company, price, emaChart, atrChart, bbandsChart, news] = data;
-      console.log(company);
+      const [company, price, chart, atrChart, bbandsChart, news] = data;
+      chart['atr'] = atrChart.atr;
+      chart['upperband'] = bbandsChart.upperband;
+      chart['middleband'] = bbandsChart.middleband;
+      chart['lowerband'] = bbandsChart.lowerband;
 
       if (Object.keys(company).length === 0) {
         apiError = {
@@ -107,15 +111,22 @@ const showStockInformation = (req, res) => {
       } else {
         symbolAdder.addSymbolToLastViewed(ticker);
         const chartService = new chartConfigService();
-        chartService.sanitizeFinnHubData(emaChart);
+        chartService.sanitizeFinnHubData(chart);
         const chartConfig = chartService.createStockConfig(company.name, -150);
+        chartService.sanitizeFinnHubDataForIndicators(chart);
+        const chartConfigWithIndicators = chartService.createStockConfigWithBollingerBands(
+          company.name,
+          -150
+        );
 
+        //res.send(configg);
         res.render('stock', {
           apiError,
           title: ticker + ': ' + company.name,
           company,
           price,
           chartConfig,
+          chartConfigWithIndicators,
           news,
           recentSymbolsArray,
         });
