@@ -32,7 +32,7 @@ const showStockInformation = (req, res) => {
         token: finnHubToken,
       },
     }),
-    // EMA
+    // EMA(20)
     axios.get(baseUrl + 'indicator', {
       params: {
         resolution: 'D',
@@ -47,7 +47,7 @@ const showStockInformation = (req, res) => {
         timeperiod: 20,
         token: finnHubToken,
       },
-    }), // ATR
+    }), // ATR(10)
     axios.get(baseUrl + 'indicator', {
       params: {
         resolution: 'D',
@@ -114,12 +114,11 @@ const showStockInformation = (req, res) => {
         chartService.sanitizeFinnHubData(chart);
         const chartConfig = chartService.createStockConfig(company.name, -150);
         chartService.sanitizeFinnHubDataForIndicators(chart);
-        const chartConfigWithIndicators = chartService.createStockConfigWithBollingerBands(
+        const chartConfigWithIndicators = chartService.createStockConfigBollingerBands(
           company.name,
           -150
         );
 
-        //res.send(configg);
         res.render('stock', {
           apiError,
           title: ticker + ': ' + company.name,
