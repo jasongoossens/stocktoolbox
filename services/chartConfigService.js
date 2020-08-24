@@ -135,7 +135,7 @@ linearReq(
       },
       'scale-y': {
         values: `${
-          Math.floor(twelveDataHighPrices) * 0.99) / 10) * 10
+          Math.floor((Math.min(...this.twelveDataHighPrices) * 0.99) / 10) * 10
         }:
           ${
             Math.ceil((Math.max(...this.twelveDataLowPrices) * 1.02) / 10) * 10
