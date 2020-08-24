@@ -14,8 +14,11 @@
   --dark-grey: #3d3a43;
   --light-grey-00: #a0a0a0;
   --light-grey-01: #707070;
-  --red: rgb(255, 70, 70);
+  --red-00: rgb(255, 70, 70);
+  --red-01: rgb(255, 87, 87);
   --dark-red: rgba(255, 75, 75, 0.808);
+  --light-green: rgb(50, 252, 50);
+  --green: rgb(0, 185, 0);
   --main-background-image: url('/images/wallstreet.jpg');
 }
 
@@ -23,7 +26,7 @@
   --text-color: var(--black);
   --text-color-inverted: var(--white);
   --nav-link-hover-color: var(--dark-red); /* header */
-  --nav-icon-hover-color: var(--red);
+  --nav-icon-hover-color: var(--red-00);
   --background-image: none; /* main bg image*/
   --main-bg-color: var(--white); /* main bg fallback */
   /* search header */
@@ -50,7 +53,7 @@
   --container-item-border-bottom: 1px solid var(--element-border-color);
   --container-item-border-left: none;
   --container-item-border-radius: 0px;
-  --container-item-hover-color: var(--red);
+  --container-item-hover-color: var(--red-00);
   /* news items, earnings items, etc */
   --element-bg-color: var(--whitesmoke);
   --container-item-hover-padding: 30px 0px;
@@ -62,14 +65,17 @@
   --sub-element-border-radius: 0px;
   /* errors */
   --error-element-color: var(--white);
-  --error-element-bg-color: var(--red);
+  --error-element-bg-color: var(--red-00);
+  /* various */
+  --positive-day: var(--green);
+  --negative-day: var(--red-00);
 }
 
 .colorful {
   --text-color: var(--white);
   --text-color-inverted: var(--black);
   --nav-link-hover-color: none; /* header */
-  --nav-icon-hover-color: var(--red);
+  --nav-icon-hover-color: var(--red-00);
   --background-image: var(--main-background-image); /* main bg image*/
   --main-bg-color: var(--medium-blue-transparent); /* main bg fallback */
   /* search header */
@@ -108,7 +114,10 @@
   --sub-element-border-radius: 25px;
   /* errors */
   --error-element-color: var(--white);
-  --error-element-bg-color: var(--red);
+  --error-element-bg-color: var(--red-00);
+  /* various */
+  --positive-day: var(--light-green);
+  --negative-day: var(--red-01);
 }
 
 * {
@@ -174,7 +183,7 @@ nav .nav-link a:hover {
 }
 
 .recent-symbol-container .symbol:hover {
-  color: var(--red);
+  color: var(--red-00);
   font-weight: 700;
 }
 
@@ -505,8 +514,15 @@ nav .nav-link a:hover {
 
 .details .stock-details .price {
   margin-top: 10px;
-  font-size: 1.8rem;
+  font-size: 1.7rem;
   font-weight: 800;
+}
+
+.details .stock-details .price .positive {
+  color: var(--positive-day);
+}
+.details .stock-details .price .negative {
+  color: var(--negative-day);
 }
 
 .details .stock-metrics {
