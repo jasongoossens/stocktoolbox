@@ -15,66 +15,74 @@
 				<div class="info-container stock-info-container">
 					<div class="details">
 						<div class="stock-details">
-							<h1 class="name"><%= company.name %></h1>
+							<h1 class="name"><%= stockInformation.name %></h1>
 							<p class="market-info">Country:
-								<%= company.country %>.
-								<%= company.exchange %></p>
+								<%= stockInformation.country %>.
+								<%= stockInformation.exchange %></p>
 							<p class="price">
 								<%= new Intl.NumberFormat('en-US',
 							{ style: 'currency', currency: 'USD' }
-						  ).format(price.c) %></p>
-						</div>
-						<div class="stock-metrics">
-							<div class="metrics-line">
-								<div class="title">Sector</div>
-								<div class="metric"><%= company.finnhubIndustry %></div>
-							</div>
-							<div class="metrics-line">
-								<div class="title">Market cap</div>
-								<div class="metric"><%= Math.round(company.marketCapitalization) %>M
-									<% if (company.marketCapitalization < 2000) { %>
-										(small cap)
-									<% } else if (company.marketCapitalization > 10000) { %>
-										(large cap)
-									<% } else  { %>
-										(mid cap)
-									<% } %>
-								</div>
-							</div>
-							<div class="metrics-line">
-								<div class="title">52 week high</div>
-								<div class="metric"><%= company.finnhubIndustry %></div>
-							</div>
-							<div class="metrics-line">
-								<div class="title">52 week low</div>
-								<div class="metric"><%= company.finnhubIndustry %></div>
-							</div>
-							<div class="metrics-line">
-								<div class="title">ATR</div>
-								<div class="metric"><%= company.finnhubIndustry %></div>
-							</div>
-							<div class="metrics-line">
-								<div class="title" title="Ratio of current volume vs 3 month average">Relative volume</div>
-								<div class="metric"><%= company.finnhubIndustry %></div>
-							</div>
-						</div>
-					</div>
-
-					<div class="chart-container">
-						<div id="chart">
-							<script>
-								zingchart.render({id: 'chart', data: <%- chartConfigWithIndicators %>, height: '100%'});
-// zingchart.render({id: 'chart', data: <%- chartConfigWithIndicators %>, height: '100%'});
-							</script>
-						</div>
-					</div>
-
-
-				</div>
-
-				<div class="stock-news-container stock-info-container"></div>
-				<div class="analysis-container stock-info-container">test</div>
+						  ).format(stockInformation.prices.currentClose) %>
+								<span class=<% if (stockInformation.prices.currentClose - stockInformation.prices.previousClose > 0) { %>
+									"positive"
+								<% } else { %>
+									"negative"
+								<% } %>><%= new Intl.NumberFormat('en-US',
+						  { style: 'currency', currency: 'USD' }
+						).format(stockInformation.prices.currentClose - stockInformation.prices.previousClose) %>
+								<% if (stockInformation.prices.currentClose - stockInformation.prices.previousClose > 0) { %>
+									<%= ' (+' + (((stockInformation.prices.currentClose - stockInformation.prices.previousClose)/stockInformation.prices.previousClose)*100).toFixed(2) + '%)' %>
+								<% } else { %>
+									<%= ' (-' + (((stockInformation.prices.currentClose - stockInformation.prices.previousClose)/stockInformation.prices.previousClose)*100).toFixed(2)+ '%)' %>
+								<% } %>
+							</p>
+						</p>
+					</span>
+				</p>
 			</div>
-		<% } %>
+			<div class="stock-metrics">
+				<div class="metrics-line">
+					<div class="title">Sector</div>
+					<div class="metric"><%= stockInformation.sector %></div>
+				</div>
+				<div class="metrics-line">
+					<div class="title">Market cap</div>
+					<div class="metric"><%= Math.round(stockInformation.marketCap) %>M
+						<% if (stockInformation.marketCap < 2000) { %>
+							(small cap)
+						<% } else if (stockInformation.marketCap > 10000) { %>
+							(large cap)
+						<% } else  { %>
+							(mid cap)
+						<% } %>
+					</div>
+				</div>
+				<div class="metrics-line">
+					<div class="title">52 week high</div>
+					<div class="metric"><%= (stockInformation.prices.fiftyTwoWeekHigh).toFixed(2) %></div>
+				</div>
+				<div class="metrics-line">
+					<div class="title">52 week low</div>
+					<div class="metric"><%= (stockInformation.prices.fiftyTwoWeekLow).toFixed(2) %></div>
+				</div>
+				<div class="metrics-line">
+					<div class="title">ATR</div>
+					<div class="metric"><%= (stockInformation.prices.atr).toFixed(2) %></div>
+				</div>
+				<div class="metrics-line">
+					<div class="title" title="Ratio of current volume vs 3 month average">Relative volume</div>
+					<div class="metric"><%= stockInformation.sector %></div>
+				</div>
+			</div>
+		</div>
+
+		<div class="chart-container">
+			<div id="chart">
+				<script>
+					zingchart.render({id: 'chart', data: <%- chartConfigWithIndicators %>, height: '100%'});
+// zingchart.render({id: 'chart', data: <%- chartConfigWithIndicators %>, height: '100%'});
+				</script>
+			</div>
+		</div>
 	</body>
-</html>
+</html></div><div class="stock-news-container stock-info-container"></div><div class="analysis-container stock-info-container">test</div></body></html></body></html></div><% } %></body></html>

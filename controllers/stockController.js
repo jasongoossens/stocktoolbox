@@ -3,7 +3,7 @@ const config = require('config');
 const moment = require('moment');
 const chartConfigService = require('../services/chartConfigService');
 const symbolAdderService = require('../services/recentTickerService');
-const c = require('config');
+const StockInformationService = require('../services/stockInformationService');
 
 const baseUrl = 'https://finnhub.io/api/v1/';
 const finnHubToken = process.env.FINNHUB_API_KEY || config.get('finnHubApiKey');
@@ -21,12 +21,6 @@ const showStockInformation = (req, res) => {
 
   Promise.all([
     axios.get(baseUrl + 'stock/profile2', {
-      params: {
-        symbol: ticker,
-        token: finnHubToken,
-      },
-    }),
-    axios.get(baseUrl + 'quote', {
       params: {
         symbol: ticker,
         token: finnHubToken,
@@ -92,7 +86,7 @@ const showStockInformation = (req, res) => {
         data.push(r.data);
       });
 
-      const [company, price, chart, atrChart, bbandsChart, news] = data;
+      const [company, chart, atrChart, bbandsChart, news] = data;
       chart['atr'] = atrChart.atr;
       chart['upperband'] = bbandsChart.upperband;
       chart['middleband'] = bbandsChart.middleband;
@@ -110,6 +104,11 @@ const showStockInformation = (req, res) => {
         });
       } else {
         symbolAdder.addSymbolToLastViewed(ticker);
+
+        const stockInfoService = new StockInformationService(company, chart);
+        const stockInformation = stockInfoService.getStockInformation();
+        console.log(stockInformation);
+
         const chartService = new chartConfigService();
         chartService.sanitizeFinnHubData(chart);
         const chartConfig = chartService.createStockConfig(company.name, -150);
@@ -121,9 +120,8 @@ const showStockInformation = (req, res) => {
 
         res.render('stock', {
           apiError,
-          title: ticker + ': ' + company.name,
-          company,
-          price,
+          title: ticker + ': ' + stockInformation.name,
+          stockInformation,
           chartConfig,
           chartConfigWithIndicators,
           news,
