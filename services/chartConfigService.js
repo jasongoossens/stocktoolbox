@@ -1,5 +1,3 @@
-const c = require('config');
-
 class ChartConfigService {
   prices = [];
   atr = [];
