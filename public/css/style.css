@@ -564,6 +564,7 @@ nav .nav-link a:hover {
 
 .stock-news-container {
   grid-area: stock-news;
+  overflow-y: scroll;
 }
 
 .analysis-container {

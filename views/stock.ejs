@@ -86,7 +86,22 @@
 						</div>
 					</div>
 				</div>
-				<div class="stock-news-container stock-info-container">testsfgfg</div>
+				<div class="stock-news-container stock-info-container"><h1>NEWS</h1>
+					<% news.map(newsItem => { if (newsItem.category != 'technology') { %>
+						<a href="<%=newsItem.url%>" target="_blank">
+							<div class="news-event container-item">
+								<div class="header">
+									<h4><%= newsItem.headline %></h4>
+									<h4 class="item-date"><%= new Date(newsItem.datetime *1000 ).toLocaleDateString('nl-BE', {
+										year: 'numeric',
+										month: '2-digit',
+										day: '2-digit',
+									  }), %></h4>
+								</div>
+								<p><%= newsItem.summary %></p>
+							</div>
+						</a>
+					<% }}) %></div>
 				<div class="analysis-container stock-info-container">test</div>
 			</div>
 		<% } %>
