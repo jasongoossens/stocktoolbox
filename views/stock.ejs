@@ -3,7 +3,7 @@
 	<%- include('./partials/head') %>
 	<body class="light">
 		<%- include('./partials/nav') %>
-		<%  if (apiError.error) { %>
+		<% if (apiError.error) { %>
 			<div class="api-error api-error-stock">
 				<h3><%= apiError.message %></h3>
 				<p>I couldn't find that stock</p>
@@ -15,7 +15,10 @@
 				<div class="info-container stock-info-container">
 					<div class="details">
 						<div class="stock-details">
-							<h1 class="name"><%= stockInformation.name %></h1>
+							<h1 class="name">
+								<a href="https://finance.yahoo.com/quote/<%= stockInformation.ticker %>" target="_blank">
+									<%= stockInformation.name %></a>
+							</h1>
 							<p class="market-info">Country:
 								<%= stockInformation.country %>.
 								<%= stockInformation.exchange %></p>
@@ -27,62 +30,65 @@
 									"positive"
 								<% } else { %>
 									"negative"
-								<% } %>><%= new Intl.NumberFormat('en-US',
+								<% } %>
+								>
+								<%= new Intl.NumberFormat('en-US',
 						  { style: 'currency', currency: 'USD' }
-						).format(stockInformation.prices.currentClose - stockInformation.prices.previousClose) %>
-								<% if (stockInformation.prices.currentClose - stockInformation.prices.previousClose > 0) { %>
-									<%= ' (+' + (((stockInformation.prices.currentClose - stockInformation.prices.previousClose)/stockInformation.prices.previousClose)*100).toFixed(2) + '%)' %>
+						).format(stockInformation.prices.dailyDifference) %>
+								<% if (stockInformation.prices.dailyDifference > 0) { %>
+									<%= ' (+' + stockInformation.prices.dailyDifferencePercent.toFixed(2) + '%)' %>
 								<% } else { %>
-									<%= ' (-' + (((stockInformation.prices.currentClose - stockInformation.prices.previousClose)/stockInformation.prices.previousClose)*100).toFixed(2)+ '%)' %>
+									<%= ' (' + stockInformation.prices.dailyDifferencePercent.toFixed(2)  + '%)' %>
 								<% } %>
 							</p>
-						</p>
-					</span>
-				</p>
-			</div>
-			<div class="stock-metrics">
-				<div class="metrics-line">
-					<div class="title">Sector</div>
-					<div class="metric"><%= stockInformation.sector %></div>
-				</div>
-				<div class="metrics-line">
-					<div class="title">Market cap</div>
-					<div class="metric"><%= Math.round(stockInformation.marketCap) %>M
-						<% if (stockInformation.marketCap < 2000) { %>
-							(small cap)
-						<% } else if (stockInformation.marketCap > 10000) { %>
-							(large cap)
-						<% } else  { %>
-							(mid cap)
-						<% } %>
+
+						</div>
+						<div class="stock-metrics">
+							<div class="metrics-line">
+								<div class="title">Sector</div>
+								<div class="metric"><%= stockInformation.sector %></div>
+							</div>
+							<div class="metrics-line">
+								<div class="title">Market cap</div>
+								<div class="metric"><%= Math.round(stockInformation.marketCap) %>M
+									<% if (stockInformation.marketCap < 2000) { %>
+										(small cap)
+									<% } else if (stockInformation.marketCap > 10000) { %>
+										(large cap)
+									<% } else  { %>
+										(mid cap)
+									<% } %>
+								</div>
+							</div>
+							<div class="metrics-line">
+								<div class="title">52 week range</div>
+								<div class="metric"><%= (stockInformation.prices.fiftyTwoWeekLow).toFixed(2) %>
+									-
+									<%= (stockInformation.prices.fiftyTwoWeekHigh).toFixed(2) %>
+								</div>
+							</div>
+							<div class="metrics-line">
+								<div class="title">ATR</div>
+								<div class="metric"><%= (stockInformation.prices.atr).toFixed(2) %></div>
+							</div>
+							<div class="metrics-line">
+								<div class="title" title="Ratio of current volume vs 3 month average">Relative volume</div>
+								<div class="metric"><%= stockInformation.prices.relativeVolume.toFixed(2) %></div>
+							</div>
+						</div>
+					</div>
+					<div class="chart-container">
+						<div id="chart">
+							<script>
+								zingchart.render({id: 'chart', data: <%- chartConfigWithIndicators %>, height: '100%'});
+// zingchart.render({id: 'chart', data: <%- chartConfigWithIndicators %>, height: '100%'});
+							</script>
+						</div>
 					</div>
 				</div>
-				<div class="metrics-line">
-					<div class="title">52 week high</div>
-					<div class="metric"><%= (stockInformation.prices.fiftyTwoWeekHigh).toFixed(2) %></div>
-				</div>
-				<div class="metrics-line">
-					<div class="title">52 week low</div>
-					<div class="metric"><%= (stockInformation.prices.fiftyTwoWeekLow).toFixed(2) %></div>
-				</div>
-				<div class="metrics-line">
-					<div class="title">ATR</div>
-					<div class="metric"><%= (stockInformation.prices.atr).toFixed(2) %></div>
-				</div>
-				<div class="metrics-line">
-					<div class="title" title="Ratio of current volume vs 3 month average">Relative volume</div>
-					<div class="metric"><%= stockInformation.sector %></div>
-				</div>
+				<div class="stock-news-container stock-info-container">testsfgfg</div>
+				<div class="analysis-container stock-info-container">test</div>
 			</div>
-		</div>
-
-		<div class="chart-container">
-			<div id="chart">
-				<script>
-					zingchart.render({id: 'chart', data: <%- chartConfigWithIndicators %>, height: '100%'});
-// zingchart.render({id: 'chart', data: <%- chartConfigWithIndicators %>, height: '100%'});
-				</script>
-			</div>
-		</div>
+		<% } %>
 	</body>
-</html></div><div class="stock-news-container stock-info-container"></div><div class="analysis-container stock-info-container">test</div></body></html></body></html></div><% } %></body></html>
+</html>

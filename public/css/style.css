@@ -506,6 +506,15 @@ nav .nav-link a:hover {
 
 .details .stock-details .name {
   font-size: 2rem;
+  cursor: pointer;
+}
+
+.details .stock-details .name a {
+  transition: color 300ms;
+}
+
+.details .stock-details .name a:hover {
+  color: var(--container-item-hover-color);
 }
 
 .details .stock-details .market-info {
