@@ -569,6 +569,19 @@ nav .nav-link a:hover {
 
 .analysis-container {
   grid-area: analysis;
+  display: grid;
+  height: 100%;
+  grid-template-rows: 50% calc(50% - 10px);
+  grid-template-areas:
+    'technical'
+    'fundamental';
+}
+
+.analysis-container .technical {
+  grid-area: technical;
+}
+.analysis-container .fundamental {
+  grid-area: fundamental;
 }
 
 /* mobile styling */

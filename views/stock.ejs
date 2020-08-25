@@ -81,12 +81,12 @@
 						<div id="chart">
 							<script>
 								zingchart.render({id: 'chart', data: <%- chartConfigWithIndicators %>, height: '100%'});
-// zingchart.render({id: 'chart', data: <%- chartConfigWithIndicators %>, height: '100%'});
 							</script>
 						</div>
 					</div>
 				</div>
-				<div class="stock-news-container stock-info-container"><h1>NEWS</h1>
+				<div class="stock-news-container stock-info-container">
+					<h1>NEWS</h1>
 					<% news.map(newsItem => { if (newsItem.category != 'technology') { %>
 						<a href="<%=newsItem.url%>" target="_blank">
 							<div class="news-event container-item">
@@ -101,8 +101,16 @@
 								<p><%= newsItem.summary %></p>
 							</div>
 						</a>
-					<% }}) %></div>
-				<div class="analysis-container stock-info-container">test</div>
+					<% }}) %>
+				</div>
+				<div class="analysis-container stock-info-container">
+					<div class="technical">
+						<h3>Technicals</h3>
+					</div>
+					<div class="fundamental">
+						<h3>Fundamentals</h3>
+					</div>
+				</div>
 			</div>
 		<% } %>
 	</body>
