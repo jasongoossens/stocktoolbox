@@ -78,13 +78,19 @@ const showIndex = (req, res) => {
         const [sAndP, nasdaq, vix] = indexPricesArray;
         const sAndPchartService = new chartConfigService();
         sAndPchartService.sanitizeTwelveDataData(sAndP);
-        sAndPChartConfig = sAndPchartService.createIndexConfig('SP500');
+        sAndPChartConfig = sAndPchartService.createIndexConfig(
+          'SP500',
+          'daily'
+        );
         const nasdaqChartService = new chartConfigService();
         nasdaqChartService.sanitizeTwelveDataData(nasdaq);
-        nasdaqChartConfig = nasdaqChartService.createIndexConfig('Nasdaq');
+        nasdaqChartConfig = nasdaqChartService.createIndexConfig(
+          'Nasdaq',
+          'daily'
+        );
         const vixChartService = new chartConfigService();
         vixChartService.sanitizeTwelveDataData(vix);
-        vixChartConfig = vixChartService.createIndexConfig('VIX', -90);
+        vixChartConfig = vixChartService.createIndexConfig('VIX', 'daily', -90);
       }
 
       res.render('index', {

@@ -78,9 +78,9 @@
 						</div>
 					</div>
 					<div class="chart-container">
-						<div id="chart">
+						<div id="details-chart">
 							<script>
-								zingchart.render({id: 'chart', data: <%- chartConfigWithIndicators %>, height: '100%'});
+								zingchart.render({id: 'details-chart', data: <%- chartConfigWithIndicators %>, height: '100%'});
 							</script>
 						</div>
 					</div>
@@ -106,6 +106,15 @@
 				<div class="analysis-container stock-info-container">
 					<div class="technical">
 						<h3>Technicals</h3>
+						<div class="details"></div>
+						<div class="chart">
+							<div id="technical-chart">
+								<script>
+									zingchart.render({id: 'technical-chart', data: <%- chartConfigTtmSqueezeHourly %>, height: '100%'});
+								</script>
+							</div>
+						</div>
+
 					</div>
 					<div class="fundamental">
 						<h3>Fundamentals</h3>
@@ -114,4 +123,4 @@
 			</div>
 		<% } %>
 	</body>
-</html>
+</html></body></html>

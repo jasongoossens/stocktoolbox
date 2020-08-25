@@ -557,7 +557,7 @@ nav .nav-link a:hover {
   height: 100%;
 }
 
-.info-container .chart-container #chart {
+.info-container .chart-container #details-chart {
   height: 100%;
   border-radius: var(--sub-element-border-radius);
 }
@@ -571,7 +571,7 @@ nav .nav-link a:hover {
   grid-area: analysis;
   display: grid;
   height: 100%;
-  grid-template-rows: 50% calc(50% - 10px);
+  grid-template-rows: 70% calc(30% - 10px);
   grid-template-areas:
     'technical'
     'fundamental';
@@ -579,7 +579,27 @@ nav .nav-link a:hover {
 
 .analysis-container .technical {
   grid-area: technical;
+  display: grid;
+  height: 100%;
+  grid-template-rows: 40px calc(100% - 48px);
+  grid-template-columns: calc(40%) calc(60%);
+  grid-template-areas:
+    'title title'
+    'technical-details technical-chart';
 }
+
+.analysis-container .technical h3 {
+  grid-area: title;
+}
+.analysis-container .technical .details {
+  grid-area: technical-details;
+}
+.analysis-container .technical #technical-chart {
+  grid-area: technical-chart;
+  height: 50%;
+  border-radius: var(--sub-element-border-radius);
+}
+
 .analysis-container .fundamental {
   grid-area: fundamental;
 }

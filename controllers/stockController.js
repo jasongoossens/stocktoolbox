@@ -72,6 +72,43 @@ const showStockInformation = (req, res) => {
         token: finnHubToken,
       },
     }),
+    // EMA(20) hourly
+    axios.get(baseUrl + 'indicator', {
+      params: {
+        resolution: '60',
+        adjusted: true,
+        from: moment().subtract(5, 'days').unix(),
+        to: moment().unix(),
+        symbol: ticker,
+        indicator: 'ema',
+        timeperiod: 20,
+        token: finnHubToken,
+      },
+    }), // ATR(10) hourly
+    axios.get(baseUrl + 'indicator', {
+      params: {
+        resolution: '60',
+        adjusted: true,
+        from: moment().subtract(5, 'days').unix(),
+        to: moment().unix(),
+        symbol: ticker,
+        indicator: 'atr',
+        timeperiod: 10,
+        token: finnHubToken,
+      },
+    }), // Bollinger bands hourly
+    axios.get(baseUrl + 'indicator', {
+      params: {
+        resolution: '60',
+        adjusted: true,
+        from: moment().subtract(5, 'days').unix(),
+        to: moment().unix(),
+        symbol: ticker,
+        indicator: 'bbands',
+        timeperiod: 20,
+        token: finnHubToken,
+      },
+    }),
     axios.get(baseUrl + 'company-news/', {
       params: {
         symbol: ticker,
@@ -86,11 +123,24 @@ const showStockInformation = (req, res) => {
         data.push(r.data);
       });
 
-      const [company, chart, atrChart, bbandsChart, news] = data;
-      chart['atr'] = atrChart.atr;
-      chart['upperband'] = bbandsChart.upperband;
-      chart['middleband'] = bbandsChart.middleband;
-      chart['lowerband'] = bbandsChart.lowerband;
+      const [
+        company,
+        dailyChart,
+        dailyAtrChart,
+        dailyBbandsChart,
+        hourlyChart,
+        hourlyAtrChart,
+        hourlyBbandsChart,
+        news,
+      ] = data;
+      dailyChart['atr'] = dailyAtrChart.atr;
+      dailyChart['upperband'] = dailyBbandsChart.upperband;
+      dailyChart['middleband'] = dailyBbandsChart.middleband;
+      dailyChart['lowerband'] = dailyBbandsChart.lowerband;
+      hourlyChart['atr'] = hourlyAtrChart.atr;
+      hourlyChart['upperband'] = hourlyBbandsChart.upperband;
+      hourlyChart['middleband'] = hourlyBbandsChart.middleband;
+      hourlyChart['lowerband'] = hourlyBbandsChart.lowerband;
 
       if (Object.keys(company).length === 0) {
         apiError = {
@@ -105,25 +155,35 @@ const showStockInformation = (req, res) => {
       } else {
         symbolAdder.addSymbolToLastViewed(ticker);
 
-        const stockInfoService = new StockInformationService(company, chart);
+        const stockInfoService = new StockInformationService(
+          company,
+          dailyChart
+        );
         const stockInformation = stockInfoService.getStockInformation();
-        console.log(stockInformation);
+        //console.log(stockInformation);
 
-        const chartService = new chartConfigService();
-        chartService.sanitizeFinnHubData(chart);
-        const chartConfig = chartService.createStockConfig(company.name, -150);
-        chartService.sanitizeFinnHubDataForIndicators(chart);
-        const chartConfigWithIndicators = chartService.createStockConfigBollingerBands(
+        const chartServiceDaily = new chartConfigService();
+        chartServiceDaily.sanitizeFinnHubData(dailyChart);
+        chartServiceDaily.sanitizeFinnHubDataForIndicators(dailyChart);
+        const chartConfigWithIndicators = chartServiceDaily.createStockConfigBollingerBands(
           company.name,
+          'daily',
           -150
+        );
+
+        const chartServiceHourly = new chartConfigService();
+        chartServiceHourly.sanitizeFinnHubDataForIndicators(hourlyChart);
+        const chartConfigTtmSqueezeHourly = chartServiceHourly.createStockConfigTtmSqueeze(
+          company.name,
+          'hourly'
         );
 
         res.render('stock', {
           apiError,
           title: ticker + ': ' + stockInformation.name,
           stockInformation,
-          chartConfig,
           chartConfigWithIndicators,
+          chartConfigTtmSqueezeHourly,
           news,
           recentSymbolsArray,
         });
@@ -131,5 +191,16 @@ const showStockInformation = (req, res) => {
     })
     .catch((error) => console.log('Something went wrong:', error));
 };
+
+// axios.interceptors.request.use(
+//   function (request) {
+//     // Do something before request is sent
+//     //console.log(request);
+//   },
+//   function (error) {
+//     // Do something with request error
+//     return Promise.reject(error);
+//   }
+// );
 
 module.exports = { showStockInformation };

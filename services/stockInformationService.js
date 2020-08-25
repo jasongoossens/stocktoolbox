@@ -9,12 +9,6 @@ class StockInformationService {
 
   getStockInformation() {
     const [previousClose, currentClose] = this.prices.c.slice(-2);
-    // 3 month avg volume
-    console.log(
-      this.prices.v.slice(-1) /
-        (this.prices.v.slice(-62).reduce((total, current) => current + total) /
-          62)
-    );
 
     return {
       name: this.company.name,
