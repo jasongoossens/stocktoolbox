@@ -33,9 +33,6 @@ class ChartConfigService {
   }
 
   sanitizeFinnHubDataForIndicators(chartData) {
-    console.log('lkjmlkj', chartData.v);
-    console.log('mlkjlmkj', chartData.momentum);
-
     chartData.t.forEach((element, index) => {
       this.dates.push(chartData.t[index] * 1000);
       this.prices.push([
@@ -47,26 +44,41 @@ class ChartConfigService {
         this.volumes.push(chartData.v[index]);
     });
 
-    this.atr = chartData.atr.map((n) => Math.round(n * 100) / 100);
-    this.ema = chartData.ema.map((n) => Math.round(n * 100) / 100);
+    this.atr = chartData.atr.map((n) =>
+      n === 0 ? null : Math.round(n * 100) / 100
+    );
+    this.ema = chartData.ema.map((n) =>
+      n === 0 ? null : Math.round(n * 100) / 100
+    );
     this.momentum =
       chartData.momentum !== undefined
         ? chartData.momentum.map((n) => Math.round(n * 100) / 100)
         : '';
-    this.bBandUpper = chartData.upperband.map((n) => Math.round(n * 100) / 100);
-    this.bBandMiddle = chartData.middleband.map(
-      (n) => Math.round(n * 100) / 100
+    this.bBandUpper = chartData.upperband.map((n) =>
+      n === 0 ? null : Math.round(n * 100) / 100
     );
-    this.bBandLower = chartData.lowerband.map((n) => Math.round(n * 100) / 100);
-
+    this.bBandMiddle = chartData.middleband.map((n) =>
+      n === 0 ? null : Math.round(n * 100) / 100
+    );
+    this.bBandLower = chartData.lowerband.map((n) =>
+      n === 0 ? null : Math.round(n * 100) / 100
+    );
+    console.log(this.bBandLower);
     this.keltnerMiddle = this.ema;
     this.ema.forEach((element, index) => {
-      const doubleAtr = this.atr[index] * 2;
+      let doubleAtr;
+
+      if (element === null) {
+        doubleAtr = null;
+      } else {
+        doubleAtr = 2 * this.atr[index];
+      }
+
       this.keltnerUpper.push(
-        Math.round((this.ema[index] + doubleAtr) * 100) / 100
+        element == null ? null : Math.round((element + doubleAtr) * 100) / 100
       );
       this.keltnerLower.push(
-        Math.round((this.ema[index] - doubleAtr) * 100) / 100
+        element == null ? null : Math.round((element - doubleAtr) * 100) / 100
       );
     });
 
@@ -215,6 +227,36 @@ linearReq(
           text: 'Volume',
         },
       },
+      'scale-y-3': {
+        'offset-start': '35%' /* distance from bottom */,
+        placement: 'default',
+        blended: true,
+        values: this.getScaleValues(
+          this.chartData.l,
+          this.chartData.h,
+          chartSize
+        ),
+      },
+      'scale-y-4': {
+        'offset-start': '35%' /* distance from bottom */,
+        placement: 'default',
+        blended: true,
+        values: this.getScaleValues(
+          this.chartData.l,
+          this.chartData.h,
+          chartSize
+        ),
+      },
+      'scale-y-5': {
+        'offset-start': '35%' /* distance from bottom */,
+        placement: 'default',
+        blended: true,
+        values: this.getScaleValues(
+          this.chartData.l,
+          this.chartData.h,
+          chartSize
+        ),
+      },
       'crosshair-x': {
         'plot-label': {
           text: 'Open: $%open<br>High: $%high<br>Low: $%low<br>Close: $%close',
@@ -258,6 +300,47 @@ linearReq(
             decimals: 0,
           },
           values: this.volumes.slice(chartSize),
+        },
+        {
+          type: 'line',
+          scales: 'scale-x,scale-y-3',
+          'background-color': '#6382a5',
+          'guide-label': {
+            text: '',
+          },
+          marker: {
+            'line-color': 'rbga(255,0,0,0.5',
+            size: 0,
+            'border-width': 0,
+          },
+          values: this.bBandUpper.slice(chartSize),
+        },
+        {
+          type: 'line',
+          scales: 'scale-x,scale-y-4',
+          'background-color': '#6382a5',
+          'guide-label': {
+            text: '',
+          },
+          marker: {
+            size: 0,
+            'border-width': 0,
+          },
+          values: this.bBandMiddle.slice(chartSize),
+        },
+        {
+          type: 'line',
+          scales: 'scale-x,scale-y-5',
+          'background-color': '#6382a5',
+          'guide-label': {
+            text: '',
+            decimals: 2,
+          },
+          marker: {
+            size: 0,
+            'border-width': 0,
+          },
+          values: this.bBandLower.slice(chartSize),
         },
       ],
     });
