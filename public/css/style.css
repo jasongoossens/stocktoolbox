@@ -572,6 +572,7 @@ nav .nav-link a:hover {
   display: grid;
   height: 100%;
   grid-template-rows: 70% calc(30% - 10px);
+  grid-template-rows: 100% calc(30% - 10px);
   grid-template-areas:
     'technical'
     'fundamental';
@@ -583,6 +584,7 @@ nav .nav-link a:hover {
   height: 100%;
   grid-template-rows: 40px calc(100% - 48px);
   grid-template-columns: calc(40%) calc(60%);
+  grid-template-columns: calc(0%) calc(100%);
   grid-template-areas:
     'title title'
     'technical-details technical-chart';
