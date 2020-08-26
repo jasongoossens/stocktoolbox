@@ -11,6 +11,7 @@ const twelveDataToken =
   process.env.TWELVEDATA_API_KEY || config.get('twelveDataApiKey');
 
 const showStockInformation = (req, res) => {
+  const dailyChartDays = 20;
   let data = [];
   const ticker = req.query.ticker.toUpperCase();
   let apiError = {
@@ -77,7 +78,7 @@ const showStockInformation = (req, res) => {
       params: {
         resolution: '60',
         adjusted: true,
-        from: moment().subtract(5, 'days').unix(),
+        from: moment().subtract(dailyChartDays, 'days').unix(),
         to: moment().unix(),
         symbol: ticker,
         indicator: 'ema',
@@ -89,7 +90,7 @@ const showStockInformation = (req, res) => {
       params: {
         resolution: '60',
         adjusted: true,
-        from: moment().subtract(5, 'days').unix(),
+        from: moment().subtract(dailyChartDays, 'days').unix(),
         to: moment().unix(),
         symbol: ticker,
         indicator: 'atr',
@@ -101,10 +102,22 @@ const showStockInformation = (req, res) => {
       params: {
         resolution: '60',
         adjusted: true,
-        from: moment().subtract(5, 'days').unix(),
+        from: moment().subtract(dailyChartDays, 'days').unix(),
         to: moment().unix(),
         symbol: ticker,
         indicator: 'bbands',
+        timeperiod: 20,
+        token: finnHubToken,
+      },
+    }), // Momentum hourly
+    axios.get(baseUrl + 'indicator', {
+      params: {
+        resolution: '60',
+        adjusted: true,
+        from: moment().subtract(dailyChartDays, 'days').unix(),
+        to: moment().unix(),
+        symbol: ticker,
+        indicator: 'mom',
         timeperiod: 20,
         token: finnHubToken,
       },
@@ -131,12 +144,22 @@ const showStockInformation = (req, res) => {
         hourlyChart,
         hourlyAtrChart,
         hourlyBbandsChart,
+        hourlyMomentumChart,
         news,
       ] = data;
+
+      Object.keys(dailyChart).forEach((key) =>
+        dailyChart[key] === undefined ? delete dailyChart[key] : {}
+      );
+      Object.keys(hourlyChart).forEach((key) =>
+        hourlyChart[key] === undefined ? delete hourlyChart[key] : {}
+      );
+
       dailyChart['atr'] = dailyAtrChart.atr;
       dailyChart['upperband'] = dailyBbandsChart.upperband;
       dailyChart['middleband'] = dailyBbandsChart.middleband;
       dailyChart['lowerband'] = dailyBbandsChart.lowerband;
+      hourlyChart['momentum'] = hourlyMomentumChart.mom;
       hourlyChart['atr'] = hourlyAtrChart.atr;
       hourlyChart['upperband'] = hourlyBbandsChart.upperband;
       hourlyChart['middleband'] = hourlyBbandsChart.middleband;
@@ -160,7 +183,6 @@ const showStockInformation = (req, res) => {
           dailyChart
         );
         const stockInformation = stockInfoService.getStockInformation();
-        //console.log(stockInformation);
 
         const chartServiceDaily = new chartConfigService();
         chartServiceDaily.sanitizeFinnHubData(dailyChart);
@@ -170,7 +192,7 @@ const showStockInformation = (req, res) => {
           'daily',
           -150
         );
-
+        
         const chartServiceHourly = new chartConfigService();
         chartServiceHourly.sanitizeFinnHubDataForIndicators(hourlyChart);
         const chartConfigTtmSqueezeHourly = chartServiceHourly.createStockConfigTtmSqueeze(
@@ -194,11 +216,9 @@ const showStockInformation = (req, res) => {
 
 // axios.interceptors.request.use(
 //   function (request) {
-//     // Do something before request is sent
 //     //console.log(request);
 //   },
 //   function (error) {
-//     // Do something with request error
 //     return Promise.reject(error);
 //   }
 // );
