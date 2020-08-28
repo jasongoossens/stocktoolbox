@@ -664,10 +664,8 @@ linearReq(
   }
 
   // Using Linda Raschke's Keltner settings
-  createStockConfigTtmSqueeze(name, resolution, chartSize = 50) {
-    console.log(this.ttmSqueezeDots);
-
-    return JSON.stringify({
+  createStockConfigTtmSqueeze(name, resolution, chartSize = 0) {
+      return JSON.stringify({
       type: 'mixed',
       title: {
         text: name + '(' + resolution + ')',
@@ -799,7 +797,7 @@ linearReq(
         {
           type: 'line',
           scales: 'scale-x,scale-y-3,scale-y-4',
-          'background-color': '#6382a5',
+          'background-color': '#ff0',
           'guide-label': {
             text: '',
           },
