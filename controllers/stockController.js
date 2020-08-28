@@ -31,7 +31,7 @@ const showStockInformation = (req, res) => {
         token: finnHubToken,
       },
     }),
-    // EMA(20)
+    // EMA(20) daily
     axios.get(baseUrl + 'indicator', {
       params: {
         resolution: 'D',
@@ -43,7 +43,7 @@ const showStockInformation = (req, res) => {
         timeperiod: emaTimePeriod,
         token: finnHubToken,
       },
-    }), // ATR(10)
+    }), // ATR(10) daily
     axios.get(baseUrl + 'indicator', {
       params: {
         resolution: 'D',
@@ -55,7 +55,7 @@ const showStockInformation = (req, res) => {
         timeperiod: atrTimePeriod,
         token: finnHubToken,
       },
-    }), // Bollinger bands
+    }), // Bollinger bands daily
     axios.get(baseUrl + 'indicator', {
       params: {
         resolution: 'D',
@@ -65,6 +65,18 @@ const showStockInformation = (req, res) => {
         symbol: ticker,
         indicator: 'bbands',
         timeperiod: bollingerBandsTimePeriod,
+        token: finnHubToken,
+      },
+    }), // Momentum daily
+    axios.get(baseUrl + 'indicator', {
+      params: {
+        resolution: 'D',
+        adjusted: true,
+        from: moment().subtract(1, 'years').unix(),
+        to: moment().unix(),
+        symbol: ticker,
+        indicator: 'mom',
+        timeperiod: momentumTimePeriod,
         token: finnHubToken,
       },
     }),
@@ -136,6 +148,7 @@ const showStockInformation = (req, res) => {
         dailyChart,
         dailyAtrChart,
         dailyBbandsChart,
+        dailyMomentumChart,
         hourlyChart,
         hourlyAtrChart,
         hourlyBbandsChart,
@@ -154,11 +167,12 @@ const showStockInformation = (req, res) => {
       dailyChart['upperband'] = dailyBbandsChart.upperband;
       dailyChart['middleband'] = dailyBbandsChart.middleband;
       dailyChart['lowerband'] = dailyBbandsChart.lowerband;
-      hourlyChart['momentum'] = hourlyMomentumChart.mom;
+      dailyChart['momentum'] = dailyMomentumChart.mom;
       hourlyChart['atr'] = hourlyAtrChart.atr;
       hourlyChart['upperband'] = hourlyBbandsChart.upperband;
       hourlyChart['middleband'] = hourlyBbandsChart.middleband;
       hourlyChart['lowerband'] = hourlyBbandsChart.lowerband;
+      hourlyChart['momentum'] = hourlyMomentumChart.mom;
 
       if (Object.keys(company).length === 0) {
         apiError = {
@@ -179,18 +193,21 @@ const showStockInformation = (req, res) => {
         );
         const stockInformation = stockInfoService.getStockInformation();
 
-        const chartServiceDaily = new chartConfigService();
-        chartServiceDaily.sanitizeFinnHubData(dailyChart);
-        chartServiceDaily.sanitizeFinnHubDataForIndicators(dailyChart);
-        const chartConfigWithIndicators = chartServiceDaily.createStockConfigBollingerBands(
+        const dailyChartService = new chartConfigService();
+        dailyChartService.sanitizeFinnHubDataForIndicators(dailyChart);
+        const chartConfigWithIndicators = dailyChartService.createStockConfigBollingerBands(
           company.name,
           'daily',
           -150
         );
+        const chartConfigTtmSqueezeDaily = dailyChartService.createStockConfigTtmSqueeze(
+          company.name,
+          'daily'
+        );
 
-        const chartServiceHourly = new chartConfigService();
-        chartServiceHourly.sanitizeFinnHubDataForIndicators(hourlyChart);
-        const chartConfigTtmSqueezeHourly = chartServiceHourly.createStockConfigTtmSqueeze(
+        const hourlyChartService = new chartConfigService();
+        hourlyChartService.sanitizeFinnHubDataForIndicators(hourlyChart);
+        const chartConfigTtmSqueezeHourly = hourlyChartService.createStockConfigTtmSqueeze(
           company.name,
           'hourly'
         );
@@ -201,6 +218,7 @@ const showStockInformation = (req, res) => {
           stockInformation,
           chartConfigWithIndicators,
           chartConfigTtmSqueezeHourly,
+          chartConfigTtmSqueezeDaily,
           news,
           recentSymbolsArray,
         });

@@ -90,11 +90,12 @@ class ChartConfigService {
         this.bBandLower[index] < this.keltnerLower[index]
       ) {
         //  Bbands greater than Keltner channels == no squeeze
-        this.ttmSqueezeDots.push(null);
+        this.ttmSqueezeDots.push(5);
       } else {
-        this.ttmSqueezeDots.push(0);
+        this.ttmSqueezeDots.push(10);
       }
     });
+    console.log(this.ttmSqueezeDots);
     /*
 TTM Histogram calc
     https://www.tradingview.com/script/nqQ1DT5a-Squeeze-Momentum-Indicator-LazyBear/
@@ -664,6 +665,8 @@ linearReq(
 
   // Using Linda Raschke's Keltner settings
   createStockConfigTtmSqueeze(name, resolution, chartSize = 0) {
+    console.log(this.ttmSqueezeDots);
+
     return JSON.stringify({
       type: 'mixed',
       title: {
@@ -805,7 +808,7 @@ linearReq(
             size: 3,
           },
           values: this.ttmSqueezeDots.slice(chartSize),
-          'line-width': 0,
+          'line-width': 10,
         },
         {
           type: 'bar',

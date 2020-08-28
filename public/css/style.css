@@ -602,6 +602,12 @@ nav .nav-link a:hover {
   border-radius: var(--sub-element-border-radius);
 }
 
+.analysis-container .technical #technical-chart2 {
+  grid-area: technical-chart;
+  height: 50%;
+  border-radius: var(--sub-element-border-radius);
+}
+
 .analysis-container .fundamental {
   grid-area: fundamental;
 }
