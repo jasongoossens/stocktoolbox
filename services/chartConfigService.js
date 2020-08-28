@@ -1,3 +1,5 @@
+const helpers = require('../utils/helpers');
+
 class ChartConfigService {
   prices = [];
   atr = [];
@@ -22,10 +24,10 @@ class ChartConfigService {
     chartData.t.forEach((element, index) => {
       this.dates.push(chartData.t[index] * 1000);
       this.prices.push([
-        Math.round(chartData.o[index] * 100) / 100,
-        Math.round(chartData.h[index] * 100) / 100,
-        Math.round(chartData.l[index] * 100) / 100,
-        Math.round(chartData.c[index] * 100) / 100,
+        helpers.roundToTwoDigits(chartData.o[index]),
+        helpers.roundToTwoDigits(chartData.h[index]),
+        helpers.roundToTwoDigits(chartData.l[index]),
+        helpers.roundToTwoDigits(chartData.c[index]),
       ]),
         this.volumes.push(chartData.v[index]);
     });
@@ -36,34 +38,34 @@ class ChartConfigService {
     chartData.t.forEach((element, index) => {
       this.dates.push(chartData.t[index] * 1000);
       this.prices.push([
-        Math.round(chartData.o[index] * 100) / 100,
-        Math.round(chartData.h[index] * 100) / 100,
-        Math.round(chartData.l[index] * 100) / 100,
-        Math.round(chartData.c[index] * 100) / 100,
+        helpers.roundToTwoDigits(chartData.o[index]),
+        helpers.roundToTwoDigits(chartData.h[index]),
+        helpers.roundToTwoDigits(chartData.l[index]),
+        helpers.roundToTwoDigits(chartData.c[index]),
       ]),
         this.volumes.push(chartData.v[index]);
     });
 
     this.atr = chartData.atr.map((n) =>
-      n === 0 ? null : Math.round(n * 100) / 100
+      n === 0 ? null : helpers.roundToTwoDigits(n)
     );
     this.ema = chartData.ema.map((n) =>
-      n === 0 ? null : Math.round(n * 100) / 100
+      n === 0 ? null : helpers.roundToTwoDigits(n)
     );
     this.momentum =
       chartData.momentum !== undefined
-        ? chartData.momentum.map((n) => Math.round(n * 100) / 100)
+        ? chartData.momentum.map((n) => helpers.roundToTwoDigits(n))
         : '';
     this.bBandUpper = chartData.upperband.map((n) =>
-      n === 0 ? null : Math.round(n * 100) / 100
+      n === 0 ? null : helpers.roundToTwoDigits(n)
     );
     this.bBandMiddle = chartData.middleband.map((n) =>
-      n === 0 ? null : Math.round(n * 100) / 100
+      n === 0 ? null : helpers.roundToTwoDigits(n)
     );
     this.bBandLower = chartData.lowerband.map((n) =>
-      n === 0 ? null : Math.round(n * 100) / 100
+      n === 0 ? null : helpers.roundToTwoDigits(n)
     );
-    console.log(this.bBandLower);
+
     this.keltnerMiddle = this.ema;
     this.ema.forEach((element, index) => {
       let doubleAtr;
@@ -75,10 +77,10 @@ class ChartConfigService {
       }
 
       this.keltnerUpper.push(
-        element == null ? null : Math.round((element + doubleAtr) * 100) / 100
+        element == null ? null : helpers.roundToTwoDigits(element + doubleAtr)
       );
       this.keltnerLower.push(
-        element == null ? null : Math.round((element - doubleAtr) * 100) / 100
+        element == null ? null : helpers.roundToTwoDigits(element - doubleAtr)
       );
     });
 
@@ -117,10 +119,10 @@ linearReq(
     for (const element in chartData) {
       this.dates.push(chartData[element].datetime);
       this.prices.push([
-        Math.round(chartData[element].open * 100) / 100,
-        Math.round(chartData[element].high * 100) / 100,
-        Math.round(chartData[element].low * 100) / 100,
-        Math.round(chartData[element].close * 100) / 100,
+        helpers.roundToTwoDigits(chartData[element].open),
+        helpers.roundToTwoDigits(chartData[element].high),
+        helpers.roundToTwoDigits(chartData[element].low),
+        helpers.roundToTwoDigits(chartData[element].close),
       ]),
         this.volumes.push(chartData[element].volume);
     }

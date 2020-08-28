@@ -11,7 +11,11 @@ const twelveDataToken =
   process.env.TWELVEDATA_API_KEY || config.get('twelveDataApiKey');
 
 const showStockInformation = (req, res) => {
-  const dailyChartDays = 20;
+  const nrOfDaysHourlyChart = 20;
+  const emaTimePeriod = 20;
+  const atrTimePeriod = 10;
+  const bollingerBandsTimePeriod = 20;
+  const momentumTimePeriod = 20;
   let data = [];
   const ticker = req.query.ticker.toUpperCase();
   let apiError = {
@@ -32,14 +36,11 @@ const showStockInformation = (req, res) => {
       params: {
         resolution: 'D',
         adjusted: true,
-        from: new Date(new Date().setFullYear(new Date().getFullYear() - 1))
-          .getTime()
-          .toString()
-          .substr(0, 10),
-        to: Date.now().toString().substr(0, 10),
+        from: moment().subtract(1, 'years').unix(),
+        to: moment().unix(),
         symbol: ticker,
         indicator: 'ema',
-        timeperiod: 20,
+        timeperiod: emaTimePeriod,
         token: finnHubToken,
       },
     }), // ATR(10)
@@ -47,14 +48,11 @@ const showStockInformation = (req, res) => {
       params: {
         resolution: 'D',
         adjusted: true,
-        from: new Date(new Date().setFullYear(new Date().getFullYear() - 1))
-          .getTime()
-          .toString()
-          .substr(0, 10),
-        to: Date.now().toString().substr(0, 10),
+        from: moment().subtract(1, 'years').unix(),
+        to: moment().unix(),
         symbol: ticker,
         indicator: 'atr',
-        timeperiod: 10,
+        timeperiod: atrTimePeriod,
         token: finnHubToken,
       },
     }), // Bollinger bands
@@ -62,14 +60,11 @@ const showStockInformation = (req, res) => {
       params: {
         resolution: 'D',
         adjusted: true,
-        from: new Date(new Date().setFullYear(new Date().getFullYear() - 1))
-          .getTime()
-          .toString()
-          .substr(0, 10),
-        to: Date.now().toString().substr(0, 10),
+        from: moment().subtract(1, 'years').unix(),
+        to: moment().unix(),
         symbol: ticker,
         indicator: 'bbands',
-        timeperiod: 20,
+        timeperiod: bollingerBandsTimePeriod,
         token: finnHubToken,
       },
     }),
@@ -78,11 +73,11 @@ const showStockInformation = (req, res) => {
       params: {
         resolution: '60',
         adjusted: true,
-        from: moment().subtract(dailyChartDays, 'days').unix(),
+        from: moment().subtract(nrOfDaysHourlyChart, 'days').unix(),
         to: moment().unix(),
         symbol: ticker,
         indicator: 'ema',
-        timeperiod: 20,
+        timeperiod: emaTimePeriod,
         token: finnHubToken,
       },
     }), // ATR(10) hourly
@@ -90,11 +85,11 @@ const showStockInformation = (req, res) => {
       params: {
         resolution: '60',
         adjusted: true,
-        from: moment().subtract(dailyChartDays, 'days').unix(),
+        from: moment().subtract(nrOfDaysHourlyChart, 'days').unix(),
         to: moment().unix(),
         symbol: ticker,
         indicator: 'atr',
-        timeperiod: 10,
+        timeperiod: atrTimePeriod,
         token: finnHubToken,
       },
     }), // Bollinger bands hourly
@@ -102,11 +97,11 @@ const showStockInformation = (req, res) => {
       params: {
         resolution: '60',
         adjusted: true,
-        from: moment().subtract(dailyChartDays, 'days').unix(),
+        from: moment().subtract(nrOfDaysHourlyChart, 'days').unix(),
         to: moment().unix(),
         symbol: ticker,
         indicator: 'bbands',
-        timeperiod: 20,
+        timeperiod: bollingerBandsTimePeriod,
         token: finnHubToken,
       },
     }), // Momentum hourly
@@ -114,11 +109,11 @@ const showStockInformation = (req, res) => {
       params: {
         resolution: '60',
         adjusted: true,
-        from: moment().subtract(dailyChartDays, 'days').unix(),
+        from: moment().subtract(nrOfDaysHourlyChart, 'days').unix(),
         to: moment().unix(),
         symbol: ticker,
         indicator: 'mom',
-        timeperiod: 20,
+        timeperiod: momentumTimePeriod,
         token: finnHubToken,
       },
     }),
@@ -192,7 +187,7 @@ const showStockInformation = (req, res) => {
           'daily',
           -150
         );
-        
+
         const chartServiceHourly = new chartConfigService();
         chartServiceHourly.sanitizeFinnHubDataForIndicators(hourlyChart);
         const chartConfigTtmSqueezeHourly = chartServiceHourly.createStockConfigTtmSqueeze(
@@ -214,6 +209,7 @@ const showStockInformation = (req, res) => {
     .catch((error) => console.log('Something went wrong:', error));
 };
 
+// /* Debug Axios calls */
 // axios.interceptors.request.use(
 //   function (request) {
 //     //console.log(request);
