@@ -90,9 +90,9 @@ class ChartConfigService {
         this.bBandLower[index] < this.keltnerLower[index]
       ) {
         //  Bbands greater than Keltner channels == no squeeze
-        this.ttmSqueezeDots.push(5);
+        this.ttmSqueezeDots.push(null);
       } else {
-        this.ttmSqueezeDots.push(10);
+        this.ttmSqueezeDots.push(0);
       }
     });
     console.log(this.ttmSqueezeDots);
@@ -664,7 +664,7 @@ linearReq(
   }
 
   // Using Linda Raschke's Keltner settings
-  createStockConfigTtmSqueeze(name, resolution, chartSize = 0) {
+  createStockConfigTtmSqueeze(name, resolution, chartSize = 50) {
     console.log(this.ttmSqueezeDots);
 
     return JSON.stringify({
@@ -808,7 +808,7 @@ linearReq(
             size: 3,
           },
           values: this.ttmSqueezeDots.slice(chartSize),
-          'line-width': 10,
+          'line-width': 0,
         },
         {
           type: 'bar',
