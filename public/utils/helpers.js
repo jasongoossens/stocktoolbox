@@ -29,3 +29,15 @@ function switchTheme() {
     localStorage.setItem('theme', 'colorful');
   }
 }
+
+const chartOne = document.getElementById('technical-chart');
+const chartTwo = document.getElementById('technical-chart2');
+function toggleChart() {
+  if (chartOne.style.display == 'none') {
+    chartOne.style.display = 'block';
+    chartTwo.style.display = 'none';
+  } else {
+    chartOne.style.display = 'none';
+    chartTwo.style.display = 'block';
+  }
+}

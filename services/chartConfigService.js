@@ -95,7 +95,7 @@ class ChartConfigService {
         this.ttmSqueezeDots.push(0);
       }
     });
-    console.log(this.ttmSqueezeDots);
+    
     /*
 TTM Histogram calc
     https://www.tradingview.com/script/nqQ1DT5a-Squeeze-Momentum-Indicator-LazyBear/
@@ -801,12 +801,8 @@ linearReq(
           'guide-label': {
             text: '',
           },
-          marker: {
-            'background-color': '#FF0066',
-            size: 3,
-          },
           values: this.ttmSqueezeDots.slice(chartSize),
-          'line-width': 0,
+          'line-width': 7,
         },
         {
           type: 'bar',
